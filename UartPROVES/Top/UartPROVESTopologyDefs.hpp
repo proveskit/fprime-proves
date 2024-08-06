@@ -1,29 +1,30 @@
 // ======================================================================
-// \title  BroncoDeploymentTopologyDefs.hpp
+// \title  UartPROVESTopologyDefs.hpp
 // \brief required header file containing the required definitions for the topology autocoder
 //
 // ======================================================================
-#ifndef BRONCODEPLOYMENT_BRONCODEPLOYMENTTOPOLOGYDEFS_HPP
-#define BRONCODEPLOYMENT_BRONCODEPLOYMENTTOPOLOGYDEFS_HPP
+#ifndef UARTPROVES_UARTPROVESTOPOLOGYDEFS_HPP
+#define UARTPROVES_UARTPROVESTOPOLOGYDEFS_HPP
 
+#include "Drv/BlockDriver/BlockDriver.hpp"
 #include "Fw/Types/MallocAllocator.hpp"
-#include "BroncoDeployment/Top/FppConstantsAc.hpp"
+#include "UartPROVES/Top/FppConstantsAc.hpp"
 #include "Svc/FramingProtocol/FprimeProtocol.hpp"
+#include "Svc/Health/Health.hpp"
 
 // Definitions are placed within a namespace named after the deployment
-namespace BroncoDeployment {
+namespace UartPROVES {
 
 /**
  * \brief required type definition to carry state
  *
- * The topology autocoder requires an object that carries state with the name `BroncoDeployment::TopologyState`. Only the type
- * definition is required by the autocoder and the contents of this object are otherwise opaque to the autocoder. The
- * contents are entirely up to the definition of the project. This reference application specifies hostname and port
- * fields, which are derived by command line inputs.
+ * The topology autocoder requires an object that carries state with the name `UartPROVES::TopologyState`. Only the type
+ * definition is required by the autocoder and the contents of this object are otherwise opaque to the autocoder. The contents are entirely up
+ * to the definition of the project. Here, they are derived from command line inputs.
  */
 struct TopologyState {
-    FwIndexType uartNumber;
-    PlatformIntType uartBaud;
+    const CHAR* uartDevice;
+    U32 baudRate;
 };
 
 /**
@@ -46,18 +47,42 @@ struct TopologyState {
  * ```
  */
 namespace PingEntries {
+namespace blockDrv {
+enum { WARN = 3, FATAL = 5 };
+}
 namespace tlmSend {
 enum { WARN = 3, FATAL = 5 };
 }
 namespace cmdDisp {
 enum { WARN = 3, FATAL = 5 };
 }
+namespace cmdSeq {
+enum { WARN = 3, FATAL = 5 };
+}
 namespace eventLogger {
+enum { WARN = 3, FATAL = 5 };
+}
+namespace fileDownlink {
+enum { WARN = 3, FATAL = 5 };
+}
+namespace fileManager {
+enum { WARN = 3, FATAL = 5 };
+}
+namespace fileUplink {
+enum { WARN = 3, FATAL = 5 };
+}
+namespace prmDb {
 enum { WARN = 3, FATAL = 5 };
 }
 namespace rateGroup1 {
 enum { WARN = 3, FATAL = 5 };
 }
+namespace rateGroup2 {
+enum { WARN = 3, FATAL = 5 };
+}
+namespace rateGroup3 {
+enum { WARN = 3, FATAL = 5 };
+}
 }  // namespace PingEntries
-}  // namespace BroncoDeployment
+}  // namespace UartPROVES
 #endif

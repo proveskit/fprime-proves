@@ -7,15 +7,16 @@
 
 set(SOURCE_FILES
   "${CMAKE_CURRENT_LIST_DIR}/instances.fpp"
-  "${CMAKE_CURRENT_LIST_DIR}/BroncoDeploymentPackets.xml"
+  "${CMAKE_CURRENT_LIST_DIR}/UartPROVESPackets.xml"
   "${CMAKE_CURRENT_LIST_DIR}/topology.fpp"
-  "${CMAKE_CURRENT_LIST_DIR}/BroncoDeploymentTopology.cpp"
+  "${CMAKE_CURRENT_LIST_DIR}/UartPROVESTopology.cpp"
 )
 set(MOD_DEPS
   Fw/Logger
-  Arduino/ArduinoTime
-  Arduino/Drv/StreamDriver
-  Os/Baremetal/TaskRunner
+  Svc/PosixTime
+  # Communication Implementations
+  Drv/Udp
+  Drv/LinuxUartDriver
 )
 
 register_fprime_module()

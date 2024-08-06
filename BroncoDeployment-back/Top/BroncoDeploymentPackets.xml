@@ -4,14 +4,46 @@
 
     <packet name="CDH" id="1" level="1">
         <channel name="cmdDisp.CommandsDispatched"/>
-        <channel name="rateGroup1.MaxCycleTime"/>
-        <channel name="rateGroup1.CycleTime"/>
-        <channel name="rateGroup1.CycleCount"/>
+        <channel name="rateGroup1.RgMaxTime"/>
+        <channel name="rateGroup2.RgMaxTime"/>
+        <channel name="rateGroup3.RgMaxTime"/>
+        <channel name="cmdSeq.CS_LoadCommands"/>
+        <channel name="cmdSeq.CS_CancelCommands"/>
+        <channel name="cmdSeq.CS_CommandsExecuted"/>
+        <channel name="cmdSeq.CS_SequencesCompleted"/>
+        <channel name="fileUplink.FilesReceived"/>
+        <channel name="fileUplink.PacketsReceived"/>
         <channel name="bufferManager.TotalBuffs"/>
         <channel name="bufferManager.CurrBuffs"/>
         <channel name="bufferManager.HiBuffs"/>
+        <channel name="fileDownlink.FilesSent"/>
+        <channel name="fileDownlink.PacketsSent"/>
+        <channel name="fileManager.CommandsExecuted"/>
+        <!-- Uncomment to use Svc::TlmPacketizer -->
+        <!--channel name="tlmSend.SendLevel"/-->
+    </packet>
+
+    <packet name="CDHErrors" id="2" level="1">
+        <channel name="rateGroup1.RgCycleSlips"/>
+        <channel name="rateGroup2.RgCycleSlips"/>
+        <channel name="rateGroup3.RgCycleSlips"/>
+        <channel name="cmdSeq.CS_Errors"/>
+        <channel name="fileUplink.Warnings"/>
+        <channel name="fileDownlink.Warnings"/>
+        <channel name="health.PingLateWarnings"/>
+        <channel name="fileManager.Errors"/>
         <channel name="bufferManager.NoBuffs"/>
         <channel name="bufferManager.EmptyBuffs"/>
+        <channel name="fileManager.Errors"/>
+    </packet>
+
+    <packet name="DriveTlm" id="3" level="1">
+        <channel name="blockDrv.BD_Cycles"/>
+    </packet>
+
+    <packet name="Comms" id="4" level="1">
+        <channel name="comQueue.comQueueDepth"/>
+        <channel name="comQueue.buffQueueDepth"/>
     </packet>
 
     <packet name="SystemRes1" id="5" level="2">
