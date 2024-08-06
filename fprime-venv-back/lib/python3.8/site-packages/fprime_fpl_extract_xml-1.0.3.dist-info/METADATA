@@ -1,0 +1,13 @@
+Metadata-Version: 2.1
+Name: fprime-fpl-extract-xml
+Version: 1.0.3
+Summary: Extract all F´ sections from an XML file and save them to the output directory.
+Author-email: Thomas Boyer-Chammard <Thomas.Boyer.Chammard@jpl.nasa.gov>
+License: Apache 2.0 License
+Keywords: fpp,fprime,embedded,nasa
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: importlib-metadata ; python_version < "3.8"
+

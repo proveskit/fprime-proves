@@ -1,0 +1,2 @@
+[console_scripts]
+fpl-extract-xml = fpl_extract_xml.__main__:main

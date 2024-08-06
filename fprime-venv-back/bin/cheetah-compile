@@ -1,0 +1,3 @@
+#!/home/xf104starfighter/SmallSat/Brore-Sat/fprime-venv/bin/python3
+from Cheetah.CheetahWrapper import _cheetah_compile
+_cheetah_compile()

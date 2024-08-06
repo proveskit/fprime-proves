@@ -6,20 +6,14 @@
 // Provides access to autocoded functions
 #include <BroncoDeployment/Top/BroncoDeploymentTopologyAc.hpp>
 #include <BroncoDeployment/Top/BroncoDeploymentPacketsAc.hpp>
+#include <config/FppConstantsAc.hpp>
 
 // Necessary project-specified types
 #include <Fw/Types/MallocAllocator.hpp>
-#include <Os/Log.hpp>
 #include <Svc/FramingProtocol/FprimeProtocol.hpp>
-
-// Used for 1Hz synthetic cycling
-#include <Os/Mutex.hpp>
 
 // Allows easy reference to objects in FPP/autocoder required namespaces
 using namespace BroncoDeployment;
-
-// Instantiate a system logger that will handle Fw::Logger::logMsg calls
-Os::Log logger;
 
 // The reference topology uses a malloc-based allocator for components that need to allocate memory during the
 // initialization phase.
@@ -29,19 +23,13 @@ Fw::MallocAllocator mallocator;
 // framing and deframing implementations.
 Svc::FprimeFraming framing;
 Svc::FprimeDeframing deframing;
-Svc::FprimeFraming hubFraming;
-Svc::FprimeDeframing hubDeframing;
 
-Svc::ComQueue::QueueConfigurationTable configurationTable;
-
-// The reference topology divides the incoming clock signal (1Hz) into sub-signals: 1Hz, 1/2Hz, and 1/4Hz with 0 offset
-Svc::RateGroupDriver::DividerSet rateGroupDivisorsSet{{{1, 0}, {2, 0}, {4, 0}}};
+// The reference topology divides the incoming clock signal (1Hz) into sub-signals: 1/100Hz, 1/200Hz, and 1/1000Hz
+Svc::RateGroupDriver::DividerSet rateGroupDivisors{{{100, 0}, {200, 0}, {1000, 0}}};
 
 // Rate groups may supply a context token to each of the attached children whose purpose is set by the project. The
 // reference topology sets each token to zero as these contexts are unused in this project.
-NATIVE_INT_TYPE rateGroup1Context[Svc::ActiveRateGroup::CONNECTION_COUNT_MAX] = {};
-NATIVE_INT_TYPE rateGroup2Context[Svc::ActiveRateGroup::CONNECTION_COUNT_MAX] = {};
-NATIVE_INT_TYPE rateGroup3Context[Svc::ActiveRateGroup::CONNECTION_COUNT_MAX] = {};
+NATIVE_INT_TYPE rateGroup1Context[FppConstant_PassiveRateGroupOutputPorts::PassiveRateGroupOutputPorts] = {};
 
 // A number of constants are needed for construction of the topology. These are specified here.
 enum TopologyConstants {
@@ -53,7 +41,7 @@ enum TopologyConstants {
     HEALTH_WATCHDOG_CODE = 0x123,
     COMM_PRIORITY = 100,
     // bufferManager constants
-    FRAMER_BUFFER_SIZE = FW_MAX(FW_COM_BUFFER_MAX_SIZE, FW_FILE_BUFFER_MAX_SIZE + sizeof(U32)) + HASH_DIGEST_LENGTH + Svc::FpFrameHeader::SIZE,
+    FRAMER_BUFFER_SIZE = FW_MAX(FW_COM_BUFFER_MAX_SIZE, FW_FILE_BUFFER_MAX_SIZE + sizeof(U32)) + sizeof(U32) + Svc::FpFrameHeader::SIZE,
     FRAMER_BUFFER_COUNT = 30,
     DEFRAMER_BUFFER_SIZE = FW_MAX(FW_COM_BUFFER_MAX_SIZE, FW_FILE_BUFFER_MAX_SIZE + sizeof(U32)),
     DEFRAMER_BUFFER_COUNT = 30,
@@ -61,23 +49,6 @@ enum TopologyConstants {
     COM_DRIVER_BUFFER_COUNT = 30,
     BUFFER_MANAGER_ID = 200
 };
-
-// Ping entries are autocoded, however; this code is not properly exported. Thus, it is copied here.
-Svc::Health::PingEntry pingEntries[] = {
-    {PingEntries::blockDrv::WARN, PingEntries::blockDrv::FATAL, "blockDrv"},
-    {PingEntries::tlmSend::WARN, PingEntries::tlmSend::FATAL, "chanTlm"},
-    {PingEntries::cmdDisp::WARN, PingEntries::cmdDisp::FATAL, "cmdDisp"},
-    {PingEntries::cmdSeq::WARN, PingEntries::cmdSeq::FATAL, "cmdSeq"},
-    {PingEntries::eventLogger::WARN, PingEntries::eventLogger::FATAL, "eventLogger"},
-    {PingEntries::fileDownlink::WARN, PingEntries::fileDownlink::FATAL, "fileDownlink"},
-    {PingEntries::fileManager::WARN, PingEntries::fileManager::FATAL, "fileManager"},
-    {PingEntries::fileUplink::WARN, PingEntries::fileUplink::FATAL, "fileUplink"},
-    {PingEntries::prmDb::WARN, PingEntries::prmDb::FATAL, "prmDb"},
-    {PingEntries::rateGroup1::WARN, PingEntries::rateGroup1::FATAL, "rateGroup1"},
-    {PingEntries::rateGroup2::WARN, PingEntries::rateGroup2::FATAL, "rateGroup2"},
-    {PingEntries::rateGroup3::WARN, PingEntries::rateGroup3::FATAL, "rateGroup3"},
-};
-
 /**
  * \brief configure/setup components in project-specific way
  *
@@ -86,27 +57,11 @@ Svc::Health::PingEntry pingEntries[] = {
  * desired, but is extracted here for clarity.
  */
 void configureTopology() {
-    // Command sequencer needs to allocate memory to hold contents of command sequences
-    cmdSeq.allocateBuffer(0, mallocator, CMD_SEQ_BUFFER_SIZE);
-
     // Rate group driver needs a divisor list
-    rateGroupDriver.configure(rateGroupDivisorsSet);
+    rateGroupDriver.configure(rateGroupDivisors);
 
     // Rate groups require context arrays.
     rateGroup1.configure(rateGroup1Context, FW_NUM_ARRAY_ELEMENTS(rateGroup1Context));
-    rateGroup2.configure(rateGroup2Context, FW_NUM_ARRAY_ELEMENTS(rateGroup2Context));
-    rateGroup3.configure(rateGroup3Context, FW_NUM_ARRAY_ELEMENTS(rateGroup3Context));
-
-    // File downlink requires some project-derived properties.
-    fileDownlink.configure(FILE_DOWNLINK_TIMEOUT, FILE_DOWNLINK_COOLDOWN, FILE_DOWNLINK_CYCLE_TIME,
-                           FILE_DOWNLINK_FILE_QUEUE_DEPTH);
-
-    // Parameter database is configured with a database file name, and that file must be initially read.
-    prmDb.configure("PrmDb.dat");
-    prmDb.readParamFile();
-
-    // Health is supplied a set of ping entires.
-    health.setPingEntries(pingEntries, FW_NUM_ARRAY_ELEMENTS(pingEntries), HEALTH_WATCHDOG_CODE);
 
     // Buffer managers need a configured set of buckets and an allocator used to allocate memory for those buckets.
     Svc::BufferManager::BufferBins upBuffMgrBins;
@@ -122,20 +77,6 @@ void configureTopology() {
     // Framer and Deframer components need to be passed a protocol handler
     framer.setup(framing);
     deframer.setup(deframing);
-    hubFramer.setup(hubFraming);
-    hubDeframer.setup(hubDeframing);
-
-    // Note: Uncomment when using Svc:TlmPacketizer
-    // tlmSend.setPacketList(BroncoDeploymentPacketsPkts, BroncoDeploymentPacketsIgnore, 1);
-
-    // Events (highest-priority)
-    configurationTable.entries[0] = {.depth = 100, .priority = 0};
-    // Telemetry
-    configurationTable.entries[1] = {.depth = 500, .priority = 2};
-    // File Downlink
-    configurationTable.entries[2] = {.depth = 100, .priority = 1};
-    // Allocation identifier is 0 as the MallocAllocator discards it
-    comQueue.configure(configurationTable, 0, mallocator);
 }
 
 // Public functions for use in main program are namespaced with deployment name BroncoDeployment
@@ -155,58 +96,16 @@ void setupTopology(const TopologyState& state) {
     // loadParameters();
     // Autocoded task kick-off (active components). Function provided by autocoder.
     startTasks(state);
-    // Initialize socket communication if and only if there is a valid specification
-    if (state.hostname != nullptr && state.port != 0) {
-        Os::TaskString name("ReceiveTask");
-        // Uplink is configured for receive so a socket task is started
-        comDriver.configure(state.hostname, state.port);
-        comDriver.start(name, true, COMM_PRIORITY, Default::STACK_SIZE);
-    }
-
-    hubComDriver.configure("0.0.0.0", 60000);
-    Os::TaskString hubName("hub");
-    hubComDriver.start(hubName, COMM_PRIORITY, Default::STACK_SIZE);
-}
-
-// Variables used for cycle simulation
-Os::Mutex cycleLock;
-volatile bool cycleFlag = true;
-
-void startSimulatedCycle(Fw::Time interval) {
-    cycleLock.lock();
-    bool cycling = cycleFlag;
-    cycleLock.unLock();
-
-    // Main loop
-    while (cycling) {
-        BroncoDeployment::blockDrv.callIsr();
-        Os::Task::delay(interval);
-
-        cycleLock.lock();
-        cycling = cycleFlag;
-        cycleLock.unLock();
-    }
-}
-
-void stopSimulatedCycle() {
-    cycleLock.lock();
-    cycleFlag = false;
-    cycleLock.unLock();
+    
+    rateDriver.configure(1);
+    commDriver.configure(&Serial);
+    rateDriver.start();
+    hubComDriver.configure(9600);
 }
 
 void teardownTopology(const TopologyState& state) {
     // Autocoded (active component) task clean-up. Functions provided by topology autocoder.
     stopTasks(state);
     freeThreads(state);
-
-    // Other task clean-up.
-    comDriver.stop();
-    (void)comDriver.join();
-    hubComDriver.stop();
-    (void)hubComDriver.join();
-
-    // Resource deallocation
-    cmdSeq.deallocateBuffer(mallocator);
-    bufferManager.cleanup();
 }
 };  // namespace BroncoDeployment

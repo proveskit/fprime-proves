@@ -6,8 +6,12 @@ module BroncoDeployment {
 
     enum Ports_RateGroups {
       rateGroup1
-      rateGroup2
-      rateGroup3
+    }
+
+    enum Ports_StaticMemory {
+      framer
+      deframer
+      deframing
     }
 
   topology BroncoDeployment {
@@ -16,37 +20,27 @@ module BroncoDeployment {
     # Instances used in the topology
     # ----------------------------------------------------------------------
 
-    instance $health
-    instance blockDrv
-    instance tlmSend
     instance cmdDisp
-    instance cmdSeq
-    instance comDriver
-    instance comQueue
-    instance comStub
+    instance commDriver
     instance deframer
     instance eventLogger
     instance fatalAdapter
     instance fatalHandler
-    instance fileDownlink
-    instance fileManager
-    instance fileUplink
-    instance bufferManager
     instance framer
-    instance posixTime
-    instance prmDb
+    instance rateDriver
     instance rateGroup1
-    instance rateGroup2
-    instance rateGroup3
     instance rateGroupDriver
-    instance textLogger
     instance systemResources
-    
+    instance textLogger
+    instance timeHandler
+    instance tlmSend
+
     #hub instances
     instance hub
     instance hubDeframer
     instance hubFramer
     instance hubComDriver
+    instance bufferManager
 
     #custom instances
     instance broncoOreMessageHandler 
@@ -59,99 +53,63 @@ module BroncoDeployment {
 
     event connections instance eventLogger
 
-    param connections instance prmDb
-
     telemetry connections instance tlmSend
 
     text event connections instance textLogger
 
-    time connections instance posixTime
-
-    health connections instance $health
+    time connections instance timeHandler
 
     # ----------------------------------------------------------------------
     # Direct graph specifiers
     # ----------------------------------------------------------------------
 
-    connections Downlink {
+    connections RateGroups {
+      # Block driver
+      rateDriver.CycleOut -> rateGroupDriver.CycleIn
 
-      eventLogger.PktSend -> comQueue.comQueueIn[0]
-      tlmSend.PktSend -> comQueue.comQueueIn[1]
-      fileDownlink.bufferSendOut -> comQueue.buffQueueIn[0]
-
-      comQueue.comQueueSend -> framer.comIn
-      comQueue.buffQueueSend -> framer.bufferIn
-
-      framer.framedAllocate -> bufferManager.bufferGetCallee
-      framer.framedOut -> comStub.comDataIn
-      framer.bufferDeallocate -> fileDownlink.bufferReturn
-
-      comDriver.deallocate -> bufferManager.bufferSendIn
-      comDriver.ready -> comStub.drvConnected
-
-      comStub.comStatus -> framer.comStatusIn
-      framer.comStatusOut -> comQueue.comStatusIn
-      comStub.drvDataOut -> comDriver.$send
-
+      # Rate group 1
+      rateGroupDriver.CycleOut[Ports_RateGroups.rateGroup1] -> rateGroup1.CycleIn
+      rateGroup1.RateGroupMemberOut[0] -> commDriver.schedIn
+      rateGroup1.RateGroupMemberOut[1] -> tlmSend.Run
+      rateGroup1.RateGroupMemberOut[2] -> systemResources.run
     }
 
     connections FaultProtection {
       eventLogger.FatalAnnounce -> fatalHandler.FatalReceive
     }
 
-    connections RateGroups {
-      # Block driver
-      blockDrv.CycleOut -> rateGroupDriver.CycleIn
+    connections Downlink {
 
-      # Rate group 1
-      rateGroupDriver.CycleOut[Ports_RateGroups.rateGroup1] -> rateGroup1.CycleIn
-      rateGroup1.RateGroupMemberOut[0] -> tlmSend.Run
-      rateGroup1.RateGroupMemberOut[1] -> fileDownlink.Run
-      rateGroup1.RateGroupMemberOut[2] -> systemResources.run
+      tlmSend.PktSend -> framer.comIn
+      eventLogger.PktSend -> framer.comIn
 
-      # Rate group 2
-      rateGroupDriver.CycleOut[Ports_RateGroups.rateGroup2] -> rateGroup2.CycleIn
-      rateGroup2.RateGroupMemberOut[0] -> cmdSeq.schedIn
+      framer.framedAllocate -> bufferManager.bufferGetCallee
+      framer.framedOut -> commDriver.$send
 
-      # Rate group 3
-      rateGroupDriver.CycleOut[Ports_RateGroups.rateGroup3] -> rateGroup3.CycleIn
-      rateGroup3.RateGroupMemberOut[0] -> $health.Run
-      rateGroup3.RateGroupMemberOut[1] -> blockDrv.Sched
-      rateGroup3.RateGroupMemberOut[2] -> bufferManager.schedIn
+      commDriver.deallocate -> bufferManager.bufferSendIn
+
     }
-
-    connections Sequencer {
-      cmdSeq.comCmdOut -> cmdDisp.seqCmdBuff
-      cmdDisp.seqCmdStatus -> cmdSeq.cmdResponseIn
-    }
-
+    
     connections Uplink {
 
-      comDriver.allocate -> bufferManager.bufferGetCallee
-      comDriver.$recv -> comStub.drvDataIn
-      comStub.comDataOut -> deframer.framedIn
-
+      commDriver.allocate -> bufferManager.bufferGetCallee
+      commDriver.$recv -> deframer.framedIn
       deframer.framedDeallocate -> bufferManager.bufferSendIn
-      deframer.comOut -> cmdDisp.seqCmdBuff
 
+      deframer.comOut -> cmdDisp.seqCmdBuff
       cmdDisp.seqCmdStatus -> deframer.cmdResponseIn
 
       deframer.bufferAllocate -> bufferManager.bufferGetCallee
-      deframer.bufferOut -> fileUplink.bufferSendIn
       deframer.bufferDeallocate -> bufferManager.bufferSendIn
-      fileUplink.bufferSendOut -> bufferManager.bufferSendIn
+      
     }
 
     connections BroncoDeployment {
       # Add here connections to user-defined components
-
-      # broncoOreMessageHandler.allocate_message_buffer -> bufferManager.bufferGetCallee
-      # broncoOreMessageHandler.deallocate_message_buffer -> bufferManager.bufferSendIn
       broncoOreMessageHandler.send_message -> hub.portIn[0]
       hub.portOut[0] -> broncoOreMessageHandler.recv_message 
     }
-
-
+    
     connections HubConnections {
 
       hub.dataOut -> hubFramer.bufferIn
@@ -169,15 +127,5 @@ module BroncoDeployment {
       hub.dataInDeallocate -> bufferManager.bufferSendIn
     }
   }
+
 }
-
-
-# CmdDisp --> CustomComponent --> Hub --> Communications TCP
-#           --> Input port A --> Output A
-# COmmuications TCP --> Hub --> ?
-
-
-# COmmunications TCP --> Hub --> CustomComponent. (logging implementaiton)
-#                               --> Input port B --> output B
-# Cmd Disp        --> Hub --> Communications TCP
-#                   --> Input port A

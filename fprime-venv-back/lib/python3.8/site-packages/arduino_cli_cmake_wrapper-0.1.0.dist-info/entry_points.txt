@@ -1,0 +1,3 @@
+[console_scripts]
+arduino-cli-wrapper = arduino_cli_cmake_wrapper.cli:main
+

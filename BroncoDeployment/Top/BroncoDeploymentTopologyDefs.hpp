@@ -6,11 +6,9 @@
 #ifndef BRONCODEPLOYMENT_BRONCODEPLOYMENTTOPOLOGYDEFS_HPP
 #define BRONCODEPLOYMENT_BRONCODEPLOYMENTTOPOLOGYDEFS_HPP
 
-#include "Drv/BlockDriver/BlockDriver.hpp"
 #include "Fw/Types/MallocAllocator.hpp"
 #include "BroncoDeployment/Top/FppConstantsAc.hpp"
 #include "Svc/FramingProtocol/FprimeProtocol.hpp"
-#include "Svc/Health/Health.hpp"
 
 // Definitions are placed within a namespace named after the deployment
 namespace BroncoDeployment {
@@ -19,12 +17,13 @@ namespace BroncoDeployment {
  * \brief required type definition to carry state
  *
  * The topology autocoder requires an object that carries state with the name `BroncoDeployment::TopologyState`. Only the type
- * definition is required by the autocoder and the contents of this object are otherwise opaque to the autocoder. The contents are entirely up
- * to the definition of the project. Here, they are derived from command line inputs.
+ * definition is required by the autocoder and the contents of this object are otherwise opaque to the autocoder. The
+ * contents are entirely up to the definition of the project. This reference application specifies hostname and port
+ * fields, which are derived by command line inputs.
  */
 struct TopologyState {
-    const CHAR* hostname;
-    U16 port;
+    FwIndexType uartNumber;
+    PlatformIntType uartBaud;
 };
 
 /**
@@ -47,40 +46,16 @@ struct TopologyState {
  * ```
  */
 namespace PingEntries {
-namespace blockDrv {
-enum { WARN = 3, FATAL = 5 };
-}
 namespace tlmSend {
 enum { WARN = 3, FATAL = 5 };
 }
 namespace cmdDisp {
 enum { WARN = 3, FATAL = 5 };
 }
-namespace cmdSeq {
-enum { WARN = 3, FATAL = 5 };
-}
 namespace eventLogger {
 enum { WARN = 3, FATAL = 5 };
 }
-namespace fileDownlink {
-enum { WARN = 3, FATAL = 5 };
-}
-namespace fileManager {
-enum { WARN = 3, FATAL = 5 };
-}
-namespace fileUplink {
-enum { WARN = 3, FATAL = 5 };
-}
-namespace prmDb {
-enum { WARN = 3, FATAL = 5 };
-}
 namespace rateGroup1 {
-enum { WARN = 3, FATAL = 5 };
-}
-namespace rateGroup2 {
-enum { WARN = 3, FATAL = 5 };
-}
-namespace rateGroup3 {
 enum { WARN = 3, FATAL = 5 };
 }
 }  // namespace PingEntries
