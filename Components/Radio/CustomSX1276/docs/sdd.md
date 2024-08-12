@@ -1,6 +1,6 @@
-# Radio::RFM69
+# Radio::CustomSX1276
 
-Example RFM69 component
+Component for F Prime FSW framework.
 
 ## Usage Examples
 Add usage examples here

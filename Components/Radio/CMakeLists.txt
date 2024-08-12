@@ -1,1 +1,1 @@
-add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/RFM69/")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/CustomSX1276/")

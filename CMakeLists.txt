@@ -6,6 +6,8 @@
 cmake_minimum_required(VERSION 3.13)
 project(Brore-Sat C CXX)
 
+# include("${CMAKE_CURRENT_LIST_DIR}/third-party/RadioLib/CMakeLists.txt")
+
 ###
 # F' Core Setup
 # This includes all of the F prime core components, and imports the make-system.

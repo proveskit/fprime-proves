@@ -100,7 +100,7 @@ void setupTopology(const TopologyState& state) {
     rateDriver.configure(1);
     commDriver.configure(&Serial);
     rateDriver.start();
-    hubComDriver.configure(9600);
+    // hubComDriver.configure(&Serial);
 }
 
 void teardownTopology(const TopologyState& state) {
