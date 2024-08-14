@@ -4,3 +4,6 @@
 [submodule "fprime-arduino"]
 	path = fprime-arduino
 	url = https://github.com/fprime-community/fprime-arduino.git
+[submodule "fprime=baremetal-reference"]
+	path = fprime-baremetal-reference
+	url = https://github.com/fprime-community/fprime-baremetal-reference.git
