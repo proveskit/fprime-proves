@@ -116,11 +116,11 @@ module BroncoDeployment {
       hub.dataOutAllocate -> bufferManager.bufferGetCallee
       hubFramer.bufferDeallocate -> bufferManager.bufferSendIn
       hubFramer.framedAllocate -> bufferManager.bufferGetCallee
-      hubFramer.framedOut -> hubComDriver.$send
+      hubFramer.framedOut -> hubComDriver.comDataIn
       hubComDriver.deallocate -> bufferManager.bufferSendIn
 
       hubComDriver.allocate -> bufferManager.bufferGetCallee
-      hubComDriver.$recv -> hubDeframer.framedIn
+      hubComDriver.comDataOut -> hubDeframer.framedIn
       hubDeframer.framedDeallocate -> bufferManager.bufferSendIn
       hubDeframer.bufferAllocate -> bufferManager.bufferGetCallee
       hubDeframer.bufferOut -> hub.dataIn

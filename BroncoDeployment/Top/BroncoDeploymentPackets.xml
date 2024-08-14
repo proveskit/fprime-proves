@@ -46,6 +46,13 @@
         <channel name="systemResources.CPU_15"/>
     </packet>
 
+    <packet name="hubComDriver" id="8" level="2">
+        <channel name="hubComDriver.NumPacketsSent"/>
+        <channel name="hubComDriver.NumPacketsReceived"/>
+        <channel name="hubComDriver.RSSI"/>
+        <channel name="hubComDriver.Status"/>
+    </packet>
+
     <!-- Ignored packets -->
 
     <ignore>

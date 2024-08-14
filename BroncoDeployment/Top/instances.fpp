@@ -68,7 +68,7 @@ module BroncoDeployment {
 
   instance hubFramer: Svc.Framer base id 0x5200
 
-  instance hubComDriver: Components.Radio.RFM69 base id 0x5300
+  instance hubComDriver: Radio.RFM69 base id 0x5300
 
 
 
