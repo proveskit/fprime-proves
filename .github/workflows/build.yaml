@@ -1,0 +1,54 @@
+name: build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+      - devel
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+        cache: 'pip'
+    - name: Install Arduino CLI
+      uses: arduino/setup-arduino-cli@v2
+      with:
+        version: "1.0.1"
+    - name: Install Arduino CLI CMake Wrapper
+      run: pip install arduino-cli-cmake-wrapper
+      shell: bash
+    - name: Configure Arduino CLI and Install RP2040 Core
+      run: |
+        arduino-cli config init
+        arduino-cli config add board_manager.additional_urls https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
+        arduino-cli core install rp2040:rp2040
+      shell: bash
+    - name: Install Arduino Libraries
+      run: |
+        arduino-cli lib install \
+          RadioHead \
+          Time
+      shell: bash
+    - name: Install F' Requirements
+      run: pip install -r fprime/requirements.txt
+      shell: bash
+    - name: Build binary
+      run: |
+        fprime-util generate rpipico
+        fprime-util build rpipico
+      shell: bash
+    - name: Archive binary
+      uses: actions/upload-artifact@v4
+      with:
+        name: BroncoDeployment.uf2
+        path: build-artifacts/rpipico/BroncoDeployment/bin/BroncoDeployment.uf2

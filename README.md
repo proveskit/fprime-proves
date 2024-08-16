@@ -1,4 +1,6 @@
 # fprime-proves F' project
+[![build](https://github.com/proveskit/fprime-proves/actions/workflows/build.yaml/badge.svg)](https://github.com/proveskit/fprime-proves/actions/workflows/build.yaml)
+
 Valid for F' 3.4.3
 
 ## Building and Running the Deployment
