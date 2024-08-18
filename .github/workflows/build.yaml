@@ -39,7 +39,7 @@ jobs:
           RadioHead \
           Time
       shell: bash
-    - uses: fprime-community/project-builder@main
+    - uses: nateinaction/fprime-project-builder@patch-conditionals
       with:
         build_location: BroncoDeployment
         target_platform: rpipico
