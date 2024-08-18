@@ -16,19 +16,10 @@ namespace Radio {
 
 RFM69::RFM69(const char* const compName)
     : RFM69ComponentBase(compName),
-#if defined(_BOARD_TEENSY41)
-      rfm69(RFM69_CS, RFM69_INT, hardware_spi1),
-#else
       rfm69(RFM69_CS, RFM69_INT),
-#endif
       radio_state(Fw::On::OFF),
       pkt_rx_count(0),
       pkt_tx_count(0) {
-
-#if defined(_BOARD_TEENSY32)
-    SPI.setSCK(RFM69_SCK);
-#endif
-
 }
 
 RFM69::~RFM69() {}

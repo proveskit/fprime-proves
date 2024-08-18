@@ -14,14 +14,6 @@ set(SOURCE_FILES
 # Uncomment and add any modules that this component depends on, else
 # they might not be available when cmake tries to build this component.
 
-string(FIND "${FPRIME_TOOLCHAIN_NAME}" "teensy" index)
-if (NOT index EQUAL -1)
-  set(MOD_DEPS
-    RadioHead
-  )
-  target_use_arduino_libraries("SPI")
-else()
-  target_use_arduino_libraries("SPI" "RH_RF69")
-endif()
+target_use_arduino_libraries("SPI" "RH_RF69")
 
 register_fprime_module()
