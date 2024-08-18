@@ -52,3 +52,8 @@ jobs:
       with:
         name: BroncoDeployment.uf2
         path: build-artifacts/rpipico/BroncoDeployment/bin/BroncoDeployment.uf2
+    - name: Archive app dictionary
+      uses: actions/upload-artifact@v4
+      with:
+        name: BroncoDeploymentAppDictionary.xml
+        path: build-artifacts/rpipico/BroncoDeployment/dict/BroncoDeploymentAppDictionary.xml
