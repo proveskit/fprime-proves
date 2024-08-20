@@ -15,16 +15,16 @@ Valid for F' 3.4.3
 `curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=$VIRTUAL_ENV/bin sh`
 1. Install the arduino-cli-wrapper `pip install arduino-cli-cmake-wrapper`
 1. Install the RP2040 board
-  ```sh
-  arduino-cli config init
-  arduino-cli config add board_manager.additional_urls https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
-  arduino-cli core install rp2040:rp2040
-  ```
+    ```sh
+    arduino-cli config init
+    arduino-cli config add board_manager.additional_urls https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
+    arduino-cli core install rp2040:rp2040
+    ```
 1. Install additional arduino-cli dependencies:
-  ```sh
-  arduino-cli lib install Time
-  arduino-cli lib install RadioHead
-  ```
+    ```sh
+    arduino-cli lib install Time
+    arduino-cli lib install RadioHead
+    ```
 
 ### Deploy onto the RP2040
 1. Build the binary `fprime-util generate rpipico && fprime-util build rpipico -j20`
