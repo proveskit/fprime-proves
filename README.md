@@ -1,9 +1,14 @@
-# fprime-proves F' project
+# F´ PROVES
 [![build](https://github.com/proveskit/fprime-proves/actions/workflows/build.yaml/badge.svg)](https://github.com/proveskit/fprime-proves/actions/workflows/build.yaml)
 
-Valid for F' 3.4.3
+F´ (F Prime) flight software for the PROVES CubeSat Kit. This version of the PROVES flight software is under development and is not ready to be used with flight hardware. Please see [proveskit/flight_software](https://github.com/proveskit/flight_software/) for our latest flight ready software.
 
 ## Building and Running the Deployment
+
+Getting started is easy! Please let us know if you run into any issues with the instructions below.
+
+### Check your environment
+You must have Python 3.9+ to build this repo. You can check with `python3 --version`
 
 ### Setup dependencies
 
@@ -15,16 +20,16 @@ Valid for F' 3.4.3
 `curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=$VIRTUAL_ENV/bin sh`
 1. Install the arduino-cli-wrapper `pip install arduino-cli-cmake-wrapper`
 1. Install the RP2040 board
-```sh
-arduino-cli config init
-arduino-cli config add board_manager.additional_urls https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
-arduino-cli core install rp2040:rp2040
-```
+    ```sh
+    arduino-cli config init
+    arduino-cli config add board_manager.additional_urls https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
+    arduino-cli core install rp2040:rp2040
+    ```
 1. Install additional arduino-cli dependencies:
-```sh
-arduino-cli lib install Time
-arduino-cli lib install RadioHead
-```
+    ```sh
+    arduino-cli lib install Time
+    arduino-cli lib install RadioHead
+    ```
 
 ### Deploy onto the RP2040
 1. Build the binary `fprime-util generate rpipico && fprime-util build rpipico -j20`
@@ -33,29 +38,3 @@ arduino-cli lib install RadioHead
 Run GDS over serial:
 1. `fprime-gds -n --dictionary build-artifacts/rpipico/BroncoDeployment/dict/BroncoDeploymentTopologyAppDictionary.xml --comm-adapter uart --uart-baud 115200 --uart-device /dev/ttyACM0 --output-unframed-data -`
 - Be sure to replace '--uart-device /dev/ttyACM0' to the proper port you connect to the board!
-
-
-## Development Notes:
-- Do NOT use the devel branch! The os layer has been updated and does not sit correctly with the fprime-arduino
-- Do the following BEFORE you make a deployment:
-- Insert fprime-arduino into your project
-- Reference it in your settings.ini
-```
-library_locations: ./fprime-arduino
-default_toolchains: rpipico
-deployment_cookiecutter: https://github.com/fprime-community/fprime-arduino-deployment-cookiecutter.git
-```
-Follow Arduino CLI Installation
-> pip install arduino-cli-cmake-wrapper
-
-> arduino-cli core install rp2040:rp2040
-
-"BroncoDeployment" is currently the only deployment able to run on the Proves RP2040.
-
-
-
-
-
-
-F´ (F Prime) is a component-driven framework that enables rapid development and deployment of spaceflight and other embedded software applications.
-**Please Visit the F´ Website:** https://fprime.jpl.nasa.gov.

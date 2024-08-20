@@ -12,10 +12,6 @@
 #include "RFM69Pinout.hpp"
 #include <FprimeArduino.hpp>
 
-#if defined(_BOARD_TEENSY41)
-#include <RHHardwareSPI1.h>
-#endif
-
 namespace Radio {
 
   class RFM69 :
