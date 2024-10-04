@@ -54,12 +54,12 @@ After installation, search for an application on your PC called ‘Ubuntu’ and
 
 Proceed to enter a username and password. After you set up your profile, you are now able to use WSL.
 
-A good first step with your new environment is to install new versions of packages available. In your WSL terminal, enter the command `sudo apt update && sudo apt upgrade` to install new packages for your WSL environment.
+A good first step with your new environment is to install new versions of packages available. In your WSL terminal, the folowing command will install new packages for your WSL environment. `sudo apt update && sudo apt upgrade`
 
 ### Check your environment
 At this point, you should likely have Python 3.12. You must have Python 3.9+ to build this repo. To make sure your Python version suffices, enter `python3 --version`
 
-Note: Your default Python3 installation in WSL may not come with 'venv', a package to create Python virtual environments. Enter `sudo apt install python3-venv` to install.
+Note: Your default Python3 installation in WSL may not come with 'venv', a package to create Python virtual environments. To install, enter `sudo apt install python3-venv` 
 
 You are now set to go ahead and clone the repo. Clone the repo to your desired location and continue with the rest of the guide.
 
@@ -93,7 +93,3 @@ You are now set to go ahead and clone the repo. Clone the repo to your desired l
 Run GDS over serial:
 1. `fprime-gds -n --dictionary build-artifacts/rpipico/BroncoDeployment/dict/BroncoDeploymentTopologyAppDictionary.xml --comm-adapter uart --uart-baud 115200 --uart-device /dev/ttyACM0 --output-unframed-data -`
 - Be sure to replace '--uart-device /dev/ttyACM0' to the proper port you connect to the board!
-
-
-
-
