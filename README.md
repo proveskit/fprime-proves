@@ -8,10 +8,32 @@ F´ (F Prime) flight software for the PROVES CubeSat Kit. This version of the PR
 Getting started is easy! Please let us know if you run into any issues with the instructions below.
 
 ### Check your environment
-You must have Python 3.9+ to build this repo. You can check with:
+You must have Python 3.9+ and Git to build this repo. You can check with:
 ```sh
 python3 --version
 ```
+```sh
+git --version
+```
+> **Note**: If you do not have these downloaded to your device, please download [Git](https://git-scm.com/downloads) and [Python](https://www.python.org/downloads/).
+
+### Cloning this repository
+1. Open your terminal or command prompt
+   
+3. Navigate to the location you want to clone the repository to using:
+   ```sh
+   cd example/path/to/the/repo/location/
+   ```
+   > **Note**: 'example/path/to/the/repo/location' is a placeholder for the path to the location you wish to put the repo
+   
+4. To clone the repository, use the following in your terminal or command prompt:
+   ```sh
+   git clone https://github.com/proveskit/fprime-proves.git
+   ```
+5. Once the repository is finished downloading, navigate into the fprime-proves directory:
+   ```sh
+   cd fprime-proves/
+   ```
 
 ### Setup dependencies
 
