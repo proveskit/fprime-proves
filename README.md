@@ -82,7 +82,8 @@ You are now set to go ahead and clone the repo. Clone the repo to your desired l
     arduino-cli lib install Time
     arduino-cli lib install RadioHead
     ```
-1. Install CMake
+1. Install CMake 3.30.4:
+   `wget -qO- https://github.com/Kitware/CMake/releases/download/v3.30.4/cmake-3.30.4-linux-x86_64.tar.gz | tar xzv && sudo mv cmake-3.30.4-linux-x86_64/bin/* /usr/local/bin && rm -r cmake-3.30.4-linux-x86_64`
 
 ### Deploy onto the RP2040
 1. Build the binary `fprime-util generate rpipico && fprime-util build rpipico -j20`
