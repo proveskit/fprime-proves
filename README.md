@@ -32,11 +32,11 @@ You must have Python 3.9+ to build this repo. You can check with `python3 --vers
     ```sh
     curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=$VIRTUAL_ENV/bin sh
     ```
-1. Install the arduino-cli-wrapper
+6. Install the arduino-cli-wrapper
    ```sh
    pip install arduino-cli-cmake-wrapper
    ```
-1. Install the RP2040 board
+7. Install the RP2040 board
     ```sh
     arduino-cli config init
     ```
@@ -44,9 +44,9 @@ You must have Python 3.9+ to build this repo. You can check with `python3 --vers
     arduino-cli config add board_manager.additional_urls https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
     ```
     ```sh
-    arduino-cli core install rp2040:rp2040
+    arduino-cli core install rp2040:rp2040@3.9.5
     ```
-1. Install additional arduino-cli dependencies:
+8. Install additional arduino-cli dependencies:
     ```sh
     arduino-cli lib install Time
     ```
