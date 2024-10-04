@@ -14,7 +14,7 @@ You must have Python 3.9+ to build this repo. You can check with `python3 --vers
 
 1. Pull the fprime submodule `git submodule update --init --recursive`
 1. Create a python venv `python3 -m venv fprime-venv`
-1. Activate the venv `. fprime-venv/bin/activate`
+1. Activate the venv `source fprime-venv/bin/activate`
 1. Install required packages `pip install -r fprime/requirements.txt`
 1. Install the arduino-cli
 `curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=$VIRTUAL_ENV/bin sh`
@@ -58,7 +58,8 @@ A good first step with your new environment is to install new versions of packag
 
 ### Check your environment
 At this point, you should likely have Python 3.12. You must have Python 3.9+ to build this repo. To make sure your Python version suffices, enter `python3 --version`
-*Note: Your default Python3 installation in WSL may not come with 'venv', a package to create Python virtual environments. Enter `sudo apt install python3-venv` to install.
+
+Note: Your default Python3 installation in WSL may not come with 'venv', a package to create Python virtual environments. Enter `sudo apt install python3-venv` to install.
 
 You are now set to go ahead and clone the repo. Clone the repo to your desired location and continue with the rest of the guide.
 
