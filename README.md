@@ -8,7 +8,10 @@ F´ (F Prime) flight software for the PROVES CubeSat Kit. This version of the PR
 Getting started is easy! Please let us know if you run into any issues with the instructions below.
 
 ### Check your environment
-You must have Python 3.9+ to build this repo. You can check with `python3 --version`
+You must have Python 3.9+ to build this repo. You can check with:
+```sh
+python3 --version
+```
 
 ### Setup dependencies
 
