@@ -44,11 +44,9 @@ Run GDS over serial:
 
 Getting started is easy! Please let us know if you run into any issues with the instructions below.
 
-### Check your environment
-You must have Python 3.9+ to build this repo. You can check with `python3 --version`
 
 ### Windows Subsystem for Linux (WSL) Install
-If you don’t have Windows Subsystem for Linux (WSL) installed on your computer, you install it by opening Windows Powershell and typing `wsl –install`
+If you don’t have Windows Subsystem for Linux (WSL) installed on your computer, install it by opening Windows Powershell and typing `wsl –install`
 
 After installation, search for an application on your PC called ‘Ubuntu’ and open. A terminal will open, and it may be accompanied with an error message.*
 
@@ -58,6 +56,8 @@ Proceed to enter a username and password. After you set up your profile, you are
 
 A good first step with your new environment is to install new versions of packages available. In your WSL terminal, enter the command `sudo apt update && sudo apt upgrade` to install new packages for your WSL environment.
 
+### Check your environment
+At this point, you should likely have Python 3.12. You must have Python 3.9+ to build this repo. To make sure your Python version suffices, enter `python3 --version`
 *Note: Your default Python3 installation in WSL may not come with 'venv', a package to create Python virtual environments. Enter `sudo apt install python3-venv` to install.
 
 You are now set to go ahead and clone the repo. Clone the repo to your desired location and continue with the rest of the guide.
