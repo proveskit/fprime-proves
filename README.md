@@ -33,7 +33,7 @@ For some of us on WSL, the default download of CMake using apt resulted in build
    wget -qO- https://github.com/Kitware/CMake/releases/download/v3.30.4/cmake-3.30.4-linux-x86_64.tar.gz | tar xzv && sudo mv cmake-3.30.4-linux-x86_64/bin/* /usr/local/bin && rm -r cmake-3.30.4-linux-x86_64
    ```
 ## Common Section (Linux/macOS and Windows)
-## Building and Running the Deployment:
+### Building and Running the Deployment:
 
 Getting started is easy! Please let us know if you run into any issues with the instructions below.
 
