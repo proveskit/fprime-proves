@@ -3,7 +3,10 @@
 
 F´ (F Prime) flight software for the PROVES CubeSat Kit. This version of the PROVES flight software is under development and is not ready to be used with flight hardware. Please see [proveskit/flight_software](https://github.com/proveskit/flight_software/) for our latest flight ready software.
 
-**Note**: This guide features setup for both Linux/macOS and Windows (through the use of WSL). There will be a section specific to only Windows users, as well as a common section where steps will apply to both groups (Linux/macOS and Windows). If you are a Linux/macOS user, you can go straight to the [Common Section](#common-section-linuxmacos-and-windows).
+### **Note**: 
+This guide features setup for both Linux/macOS and Windows (through the use of WSL). There will be a section specific to only [Windows](#windows-specific-section) users, as well as a common section where steps will apply to both groups (Linux/macOS and Windows). 
+
+If you're a Linux/macOS user, you can go straight to the [Common Section](#common-section-linuxmacos-and-windows). If a Windows user, do the [Windows](#windows-specific-section) section then go on to the [Common Section](#common-section-linuxmacos-and-windows) section.
 
 ## Windows Specific Section
 ### Windows Subsystem for Linux (WSL) Install
@@ -32,6 +35,7 @@ For some of us on WSL, the default download of CMake using apt resulted in build
    ```sh
    wget -qO- https://github.com/Kitware/CMake/releases/download/v3.30.4/cmake-3.30.4-linux-x86_64.tar.gz | tar xzv && sudo mv cmake-3.30.4-linux-x86_64/bin/* /usr/local/bin && rm -r cmake-3.30.4-linux-x86_64
    ```
+Now, you can proceed to the [Common Section](#common-section-linuxmacos-and-windows) and continue setup.
 ## Common Section (Linux/macOS and Windows)
 ### Building and Running the Deployment:
 
