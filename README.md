@@ -67,7 +67,6 @@ git --version
 
 ### Setup dependencies
 
-
 1. Pull the fprime submodule 
     ```sh
     git submodule update --init --recursive
@@ -123,7 +122,3 @@ git --version
    fprime-gds -n --dictionary build-artifacts/rpipico/BroncoDeployment/dict/BroncoDeploymentTopologyAppDictionary.xml --comm-adapter uart --uart-baud 115200 --uart-device /dev/ttyACM0 --output-unframed-data -
    ```
     > **Note:** Be sure to replace '--uart-device /dev/ttyACM0' to the proper port you connect to the board!
-
-
-
-
