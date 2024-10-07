@@ -86,8 +86,8 @@ git --version
    ```
 2. Install the arduino-cli
    ```sh
-    curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=$VIRTUAL_ENV/bin sh
-    ```
+   curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=$VIRTUAL_ENV/bin sh
+   ```
 1. 
    Install the arduino-cli-wrapper 
    ```sh
