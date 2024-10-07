@@ -82,7 +82,7 @@ git --version
 ### Deploy onto the RP2040
 1. Build the binary
    ```sh
-   fprime-util generate rpipico && fprime-util build rpipico -j20
+   fprime-util generate && fprime-util build -j20
    ```
 2. Move the binary from 'build-artifacts/rpipico/BroncoDeployment/bin/BroncoDeployment' into the Proves board over USB after it has been intialized in boot loader mode (Press both Boot loader and Reset button at the same time). This should reinit the board automatically and will run the deployment.
 
