@@ -13,6 +13,11 @@ module BroncoDeployment {
   # Active component instances
   # ----------------------------------------------------------------------
 
+  instance helloWorld: Components.HelloWorld base id 0x0F00 \
+    queue size Default.QUEUE_SIZE \
+    stack size Default.STACK_SIZE \
+    priority 50
+
   instance cmdDisp: Svc.CommandDispatcher base id 0x0100 \
     queue size Default.QUEUE_SIZE\
     stack size Default.STACK_SIZE \

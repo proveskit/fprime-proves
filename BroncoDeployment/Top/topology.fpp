@@ -20,6 +20,7 @@ module BroncoDeployment {
     # Instances used in the topology
     # ----------------------------------------------------------------------
 
+    instance helloWorld
     instance cmdDisp
     instance commDriver
     instance deframer
