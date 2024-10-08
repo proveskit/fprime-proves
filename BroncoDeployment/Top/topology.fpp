@@ -45,6 +45,8 @@ module BroncoDeployment {
     #custom instances
     instance broncoOreMessageHandler
     instance helloWorld
+    instance mathSender
+    instance mathReceiver 
 
     # ----------------------------------------------------------------------
     # Pattern graph specifiers
@@ -73,6 +75,7 @@ module BroncoDeployment {
       rateGroup1.RateGroupMemberOut[0] -> commDriver.schedIn
       rateGroup1.RateGroupMemberOut[1] -> tlmSend.Run
       rateGroup1.RateGroupMemberOut[2] -> systemResources.run
+      rateGroup1.RateGroupMemberOut[3] -> mathReceiver.schedIn
     }
 
     connections FaultProtection {
@@ -109,6 +112,8 @@ module BroncoDeployment {
       # Add here connections to user-defined components
       broncoOreMessageHandler.send_message -> hub.portIn[0]
       hub.portOut[0] -> broncoOreMessageHandler.recv_message 
+      mathSender.mathOpOut -> mathReceiver.mathOpIn
+      mathReceiver.mathResultOut -> mathSender.mathResultIn
     }
     
     connections HubConnections {

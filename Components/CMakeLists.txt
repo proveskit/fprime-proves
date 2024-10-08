@@ -5,3 +5,5 @@ add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/BroncoOreMessageHandler/")
 
 add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/Radio/")
 add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/HelloWorld/")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/MathSender/")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/MathReceiver/")

@@ -32,11 +32,19 @@ module BroncoDeployment {
     queue size Default.QUEUE_SIZE \
     stack size Default.STACK_SIZE \
     priority 50
+  
+  instance mathSender: MathModule.MathSender base id 0xE00 \
+    queue size Default.QUEUE_SIZE \
+    stack size Default.STACK_SIZE \
+    priority 100
 
   # ----------------------------------------------------------------------
   # Queued component instances
   # ----------------------------------------------------------------------
 
+  instance mathReceiver: MathModule.MathReceiver base id 0x2700 \
+  queue size Default.QUEUE_SIZE
+  
   # ----------------------------------------------------------------------
   # Passive component instances
   # ----------------------------------------------------------------------
