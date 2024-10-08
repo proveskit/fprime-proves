@@ -43,7 +43,8 @@ module BroncoDeployment {
     instance bufferManager
 
     #custom instances
-    instance broncoOreMessageHandler 
+    instance broncoOreMessageHandler
+    instance helloWorld
 
     # ----------------------------------------------------------------------
     # Pattern graph specifiers

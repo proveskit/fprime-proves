@@ -28,6 +28,11 @@ module BroncoDeployment {
     stack size Default.STACK_SIZE \
     priority 97
 
+  instance helloWorld: Components.HelloWorld base id 0x0F00 \
+    queue size Default.QUEUE_SIZE \
+    stack size Default.STACK_SIZE \
+    priority 50
+
   # ----------------------------------------------------------------------
   # Queued component instances
   # ----------------------------------------------------------------------
