@@ -5,22 +5,21 @@
 // ======================================================================
 
 #include "Components/Led/Led.hpp"
-#include "Components/Led/LedPinout.hpp"
 #include "FpConfig.hpp"
 
 namespace Components {
 
+#define PIN 24
+#define NUMPIXELS 1
+
 // ----------------------------------------------------------------------
 // Component construction and destruction
 // ----------------------------------------------------------------------
-
-#define PIN 24
-#define NUMPIXELS 1
 Led ::Led(const char* const compName) : LedComponentBase(compName),
     state(Fw::On::OFF),
     transitions(0),
     count(0),
-    blinking(true),
+    blinking(false),
     pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800)
 {
     pixels.begin();
@@ -69,13 +68,12 @@ Led ::~Led() {}
 
                 if (Fw::On::ON == new_state) {
                     pixels.setPixelColor(0, pixels.Color(150, 0, 0));
-                    pixels.show(); 
                 }
                 else {
-                    // pixels.clear();
                     pixels.setPixelColor(0, pixels.Color(0, 0, 0));
-                    pixels.show();
                 }
+
+                pixels.show();
 
                 this->state = new_state;
                 this->tlmWrite_BlinkingState(this->state);
