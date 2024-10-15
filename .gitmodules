@@ -4,3 +4,6 @@
 [submodule "fprime-arduino"]
 	path = fprime-arduino
 	url = https://github.com/fprime-community/fprime-arduino.git
+[submodule "lib/Adafruit_NeoPixel"]
+	path = lib/Adafruit_NeoPixel
+	url = https://github.com/adafruit/Adafruit_NeoPixel.git

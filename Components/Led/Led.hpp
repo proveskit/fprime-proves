@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  Led.hpp
-// \author nate
+// \author nateinaction
 // \brief  hpp file for Led component implementation class
 // ======================================================================
 
@@ -8,6 +8,7 @@
 #define Components_Led_HPP
 
 #include "Components/Led/LedComponentAc.hpp"
+#include "lib/Adafruit_NeoPixel/Adafruit_NeoPixel.h"
 
 namespace Components {
 
@@ -61,6 +62,7 @@ class Led : public LedComponentBase {
       U64 transitions; //! The number of on/off transitions that have occurred from FSW boot up
       U32 count; //! Keeps track of how many ticks the LED has been on for
       bool blinking; //! Flag: if true then LED blinking will occur else no blinking will happen
+      Adafruit_NeoPixel pixels;
 };
 
 }  // namespace Components

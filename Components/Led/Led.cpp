@@ -1,10 +1,11 @@
 // ======================================================================
 // \title  Led.cpp
-// \author nate
+// \author nateinaction
 // \brief  cpp file for Led component implementation class
 // ======================================================================
 
 #include "Components/Led/Led.hpp"
+#include "Components/Led/LedPinout.hpp"
 #include "FpConfig.hpp"
 
 namespace Components {
@@ -13,12 +14,15 @@ namespace Components {
 // Component construction and destruction
 // ----------------------------------------------------------------------
 
+#define NUMPIXELS 1
 Led ::Led(const char* const compName) : LedComponentBase(compName),
     state(Fw::On::OFF),
     transitions(0),
     count(0),
-    blinking(true)
-{}
+    blinking(true),
+    pixels(NUMPIXELS, NEO_PWR, NEO_GRB + NEO_KHZ800)
+{
+}
 
 Led ::~Led() {}
 
@@ -47,10 +51,13 @@ Led ::~Led() {}
             if ((0 == this->count) && (this->state == Fw::On::OFF))
             {
                 new_state = Fw::On::ON;
+                pixels.begin();
+                pixels.setPixelColor(1, pixels.Color(0, 150, 0));
             }
             else if (((interval / 2) == this->count) && (this->state == Fw::On::ON))
             {
                 new_state = Fw::On::OFF;
+                pixels.clear();
             }
 
             // A transition has occurred
