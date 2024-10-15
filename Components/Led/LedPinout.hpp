@@ -11,7 +11,8 @@
 
 namespace Components
 {
-    static const NATIVE_INT_TYPE NEO_PWR = 27;
+    // static const NATIVE_INT_TYPE NEO_PIX = 24;
+    // static const NATIVE_INT_TYPE NEO_PWR = 27;
 }
 
 #endif /* LEDPINOUT_HPP */

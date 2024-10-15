@@ -14,14 +14,16 @@ namespace Components {
 // Component construction and destruction
 // ----------------------------------------------------------------------
 
+#define PIN 24
 #define NUMPIXELS 1
 Led ::Led(const char* const compName) : LedComponentBase(compName),
     state(Fw::On::OFF),
     transitions(0),
     count(0),
     blinking(true),
-    pixels(NUMPIXELS, NEO_PWR, NEO_GRB + NEO_KHZ800)
+    pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800)
 {
+    pixels.begin();
 }
 
 Led ::~Led() {}
@@ -51,13 +53,10 @@ Led ::~Led() {}
             if ((0 == this->count) && (this->state == Fw::On::OFF))
             {
                 new_state = Fw::On::ON;
-                pixels.begin();
-                pixels.setPixelColor(1, pixels.Color(0, 150, 0));
             }
             else if (((interval / 2) == this->count) && (this->state == Fw::On::ON))
             {
                 new_state = Fw::On::OFF;
-                pixels.clear();
             }
 
             // A transition has occurred
@@ -68,10 +67,14 @@ Led ::~Led() {}
                 // Report the number of LED transitions (this->transitions)
                 this->tlmWrite_LedTransitions(this->transitions);
 
-                // Port may not be connected, so check before sending output
-                if (this->isConnected_gpioSet_OutputPort(0))
-                {
-                    this->gpioSet_out(0, (Fw::On::ON == new_state) ? Fw::Logic::HIGH : Fw::Logic::LOW);
+                if (Fw::On::ON == new_state) {
+                    pixels.setPixelColor(0, pixels.Color(150, 0, 0));
+                    pixels.show(); 
+                }
+                else {
+                    // pixels.clear();
+                    pixels.setPixelColor(0, pixels.Color(0, 0, 0));
+                    pixels.show();
                 }
 
                 this->state = new_state;
@@ -84,11 +87,8 @@ Led ::~Led() {}
         {
           if(this->state == Fw::On::ON)
           {
-            // Port may not be connected, so check before sending output
-            if (this->isConnected_gpioSet_OutputPort(0))
-            {
-              this->gpioSet_out(0, Fw::Logic::LOW);
-            }
+            pixels.setPixelColor(0, pixels.Color(0, 0, 0));
+            pixels.show();
 
             this->state = Fw::On::OFF;
             
