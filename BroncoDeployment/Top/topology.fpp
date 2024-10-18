@@ -44,6 +44,7 @@ module BroncoDeployment {
 
     #custom instances
     instance broncoOreMessageHandler 
+    instance helloWorld
 
     # ----------------------------------------------------------------------
     # Pattern graph specifiers
