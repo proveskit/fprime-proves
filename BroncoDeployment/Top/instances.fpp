@@ -27,7 +27,14 @@ module BroncoDeployment {
     queue size Default.QUEUE_SIZE \
     stack size Default.STACK_SIZE \
     priority 97
-  
+
+  # TODO (nateinaction): Look up priority and understand how to make this high priority
+  # Talked to Michael Starch. Prioirty is not yet implemented for arduino.
+  instance watchdog: Components.Watchdog base id 0x0400 \
+    queue size Default.QUEUE_SIZE \
+    stack size Default.STACK_SIZE \
+    priority 96
+
   instance led: Components.Led base id 0x0E00 \
     queue size Default.QUEUE_SIZE \
     stack size Default.STACK_SIZE \
