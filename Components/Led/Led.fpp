@@ -38,7 +38,7 @@ module Components {
         sync input port run: Svc.Sched
 
         @ Port sending calls to the GPIO driver
-        output port gpioSet: Drv.GpioWrite
+        output port neoPixelSet: Drv.NeoPixelDriver
 
         ##############################################################################
         #### Uncomment the following examples to start customizing your component ####
