@@ -87,7 +87,7 @@ git --version
    ```sh
    pip install -r fprime/requirements.txt
    ```
-2. Install the arduino-cli
+1. Install the arduino-cli
    ```sh
    curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=$VIRTUAL_ENV/bin sh
    ```
@@ -96,7 +96,7 @@ git --version
    ```sh
    pip install arduino-cli-cmake-wrapper
    ```
-2. Install the RP2040 board
+1. Install the RP2040 board
     ```sh
     arduino-cli config init
     ```
@@ -106,22 +106,30 @@ git --version
     ```sh
     arduino-cli core install rp2040:rp2040@3.9.5
     ```
-3. Install additional arduino-cli dependencies:
+1. Install additional arduino-cli dependencies:
     ```sh
     arduino-cli lib install Time
     ```
     ```sh
     arduino-cli lib install RadioHead
     ```
+1. Generate the initial fprime build cache
+   ```sh
+   fprime-util generate
+   ```
 
 ### Deploy onto the RP2040
 1. Build the binary
    ```sh
-   fprime-util generate && fprime-util build -j20
+   fprime-util build -j20
    ```
-2. Move the binary from 'build-artifacts/rpipico/BroncoDeployment/bin/BroncoDeployment' into the Proves board over USB after it has been intialized in boot loader mode (Press both Boot loader and Reset button at the same time). This should reinit the board automatically and will run the deployment.
 
-3. Run GDS over serial:
+1. Upload the firmware to the proves board over USB
+   ```sh
+   arduino-cli upload -v -b 115200 --fqbn rp2040:rp2040:rpipico -p /dev/ttyACM0 -i build-artifacts/rpipico/BroncoDeployment/bin/BroncoDeployment.uf2
+   ```
+
+1. Run GDS over serial:
    ```sh
    fprime-gds -n --dictionary build-artifacts/rpipico/BroncoDeployment/dict/BroncoDeploymentTopologyAppDictionary.xml --comm-adapter uart --uart-baud 115200 --uart-device /dev/ttyACM0 --output-unframed-data -
    ```
