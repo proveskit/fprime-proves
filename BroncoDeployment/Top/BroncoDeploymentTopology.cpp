@@ -77,12 +77,6 @@ void configureTopology() {
     // Framer and Deframer components need to be passed a protocol handler
     framer.setup(framing);
     deframer.setup(deframing);
-
-    // gpioDriver.open(Arduino::DEF_LED_BUILTIN, Arduino::GpioDriver::GpioDirection::OUT);
-    // bool gpio_success = gpioDriver.open(27, Arduino::GpioDriver::GpioDirection::OUT);
-    // if (!gpio_success) {
-    //     Fw::Logger::logMsg("[ERROR] Failed to open GPIO pin\n"); // requires os
-    // }
 }
 
 // Public functions for use in main program are namespaced with deployment name BroncoDeployment

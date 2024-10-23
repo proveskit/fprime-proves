@@ -1,29 +1,28 @@
 // ======================================================================
-// \title  Led.hpp
+// \title  LedBlinker.hpp
 // \author nateinaction
-// \brief  hpp file for Led component implementation class
+// \brief  hpp file for LedBlinker component implementation class
 // ======================================================================
 
-#ifndef Components_Led_HPP
-#define Components_Led_HPP
+#ifndef Components_LedBlinker_HPP
+#define Components_LedBlinker_HPP
 
-#include "Components/Led/LedComponentAc.hpp"
-#include "lib/Adafruit_NeoPixel/Adafruit_NeoPixel.h"
+#include "Components/LedBlinker/LedBlinkerComponentAc.hpp"
 
 namespace Components {
 
-class Led : public LedComponentBase {
+class LedBlinker : public LedBlinkerComponentBase {
   public:
     // ----------------------------------------------------------------------
     // Component construction and destruction
     // ----------------------------------------------------------------------
 
-    //! Construct Led object
-    Led(const char* const compName  //!< The component name
+    //! Construct LedBlinker object
+    LedBlinker(const char* const compName  //!< The component name
     );
 
-    //! Destroy Led object
-    ~Led();
+    //! Destroy LedBlinker object
+    ~LedBlinker();
 
   PRIVATE:
     // ----------------------------------------------------------------------
@@ -58,11 +57,9 @@ class Led : public LedComponentBase {
     );
 
     PRIVATE:
-      Fw::On state; //! Keeps track if LED is on or off
-      U64 transitions; //! The number of on/off transitions that have occurred from FSW boot up
-      U32 count; //! Keeps track of how many ticks the LED has been on for
-      bool blinking; //! Flag: if true then LED blinking will occur else no blinking will happen
-      Adafruit_NeoPixel pixels;
+      Fw::On blinking; //! If LED blinking is on
+      U64 blinkCount; //! The number of on/off transitions that have occurred from FSW boot up
+      U32 cycleCount; //! Keeps track of how many ticks the LED has been on for
 };
 
 }  // namespace Components

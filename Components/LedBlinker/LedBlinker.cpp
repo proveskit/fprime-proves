@@ -1,37 +1,32 @@
 // ======================================================================
-// \title  Led.cpp
+// \title  LedBlinker.cpp
 // \author nateinaction
-// \brief  cpp file for Led component implementation class
+// \brief  cpp file for LedBlinker component implementation class
 // ======================================================================
 
-#include "Components/Led/Led.hpp"
+#include "Components/LedBlinker/LedBlinker.hpp"
 #include "FpConfig.hpp"
 
 namespace Components {
 
-#define PIN 24
-#define NUMPIXELS 1
-
 // ----------------------------------------------------------------------
 // Component construction and destruction
 // ----------------------------------------------------------------------
-Led ::Led(const char* const compName) : LedComponentBase(compName),
-    state(Fw::On::OFF),
-    transitions(0),
-    count(0),
-    blinking(false),
-    pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800)
+LedBlinker ::LedBlinker(const char* const compName) : LedBlinkerComponentBase(compName),
+    blinking(Fw::On::OFF),
+    blinkCount(0),
+    cycleCount(0)
 {
-    pixels.begin();
+
 }
 
-Led ::~Led() {}
+LedBlinker ::~LedBlinker() {}
 
 // ----------------------------------------------------------------------
 // Handler implementations for user-defined typed input ports
 // ----------------------------------------------------------------------
 
-    void Led ::
+    void LedBlinker ::
         run_handler(
             const NATIVE_INT_TYPE portNum,
             NATIVE_UINT_TYPE context)
@@ -44,54 +39,21 @@ Led ::~Led() {}
         interval = ((Fw::ParamValid::INVALID == isValid) || (Fw::ParamValid::UNINIT == isValid)) ? 0 : interval;
 
         // Only perform actions when set to blinking
-        bool is_blinking = this->blinking;
-        if (is_blinking)
-        {
-            Fw::On new_state = this->state;
-            // Check for transitions
-            if ((0 == this->count) && (this->state == Fw::On::OFF))
-            {
-                new_state = Fw::On::ON;
-            }
-            else if (((interval / 2) == this->count) && (this->state == Fw::On::ON))
-            {
-                new_state = Fw::On::OFF;
+        if (this->blinking == Fw::On::ON) {
+            bool transition_occurred = false;
+
+            if (0 == this->cycleCount) {
+                this->neoPixelSet_out(0, Fw::On::ON, 255, 0, 0);
+
+                this->blinkCount = this->blinkCount + 1;
+                this->tlmWrite_LedBlinks(this->blinkCount);
+            } else if ((interval / 2) == this->cycleCount) {
+                this->neoPixelSet_out(0, Fw::On::OFF, 0, 0, 0);
             }
 
-            // A transition has occurred
-            if (this->state != new_state)
-            {
-                this->transitions = this->transitions + 1;
-
-                // Report the number of LED transitions (this->transitions)
-                this->tlmWrite_LedTransitions(this->transitions);
-
-                if (Fw::On::ON == new_state) {
-                    pixels.setPixelColor(0, pixels.Color(150, 0, 0));
-                }
-                else {
-                    pixels.setPixelColor(0, pixels.Color(0, 0, 0));
-                }
-
-                pixels.show();
-
-                this->state = new_state;
-                this->tlmWrite_BlinkingState(this->state);
-            }
-
-            this->count = ((this->count + 1) >= interval) ? 0 : (this->count + 1);
-        }
-        else
-        {
-          if(this->state == Fw::On::ON)
-          {
-            pixels.setPixelColor(0, pixels.Color(0, 0, 0));
-            pixels.show();
-
-            this->state = Fw::On::OFF;
-            
-            this->tlmWrite_BlinkingState(this->state);
-          }
+            this->cycleCount = ((this->cycleCount + 1) >= interval) ? 0 : (this->cycleCount + 1);
+        } else {
+            this->neoPixelSet_out(0, Fw::On::OFF, 0, 0, 0);
         }
     }
 
@@ -99,7 +61,7 @@ Led ::~Led() {}
 // Handler implementations for commands
 // ----------------------------------------------------------------------
 
-void Led ::
+void LedBlinker ::
     BLINKING_ON_OFF_cmdHandler(
         const FwOpcodeType opCode,
         const U32 cmdSeq,
@@ -122,7 +84,7 @@ void Led ::
     else
     {
         this->count = 0; // Reset count on any successful command
-        this->blinking = Fw::On::ON == on_off; // Update blinking state
+        this->blinking = on_off; // Update blinking state
 
         // Reports the state we set to blinking.
         this->log_ACTIVITY_HI_SetBlinkingState(on_off);
@@ -135,7 +97,7 @@ void Led ::
     this->cmdResponse_out(opCode,cmdSeq,cmdResp);
   }
 
-  void Led ::parameterUpdated(FwPrmIdType id) {
+  void LedBlinker ::parameterUpdated(FwPrmIdType id) {
     // Read back the parameter value
     Fw::ParamValid isValid;
     U32 interval = this->paramGet_BLINK_INTERVAL(isValid);

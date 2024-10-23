@@ -2,7 +2,8 @@ module Drv {
     @ FPrime driver implmementation for Adafruit NeoPixel.
     passive component NeoPixelDriver {
 
-        sync input port neoPixelOnOff: Drv.NeoPixelOnOff
+        @ Port to turn modify the NeoPixel state.
+        sync input port neoPixelWrite: Drv.NeoPixelWrite
 
         ###############################################################################
         # Standard AC Ports: Required for Channels, Events, Commands, and Parameters  #

@@ -53,9 +53,9 @@
         <channel name="hubComDriver.Status"/>
     </packet>
 
-    <packet name="LedChannels" id="9" level="1">
-        <channel name="led.LedTransitions"/>
-        <channel name="led.BlinkingState"/>
+    <packet name="LedBlinkerChannels" id="9" level="3">
+        <channel name="ledBlinker.LedBlinks"/>
+        <channel name="ledBlinker.BlinkingState"/>
     </packet>
 
     <!-- Ignored packets -->

@@ -1,4 +1,4 @@
-# Components::Led
+# Components::LedBlinker
 
 Component to blink an LED driven by a rate group
 

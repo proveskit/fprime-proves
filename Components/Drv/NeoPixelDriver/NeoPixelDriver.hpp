@@ -31,17 +31,18 @@ class NeoPixelDriver : public NeoPixelDriverComponentBase {
     // ----------------------------------------------------------------------
 
     //! Handler implementation for onOff
-    void neoPixelOnOff_handler(NATIVE_INT_TYPE portNum,  //!< The port number
-                       const Fw::On& on_off,
-                       U8 red,
-                       U8 green,
-                       U8 blue) override;
+    void neoPixelWrite_handler(NATIVE_INT_TYPE portNum,  //!< The port number
+                               const Fw::On& on_off,
+                               U8 red,
+                               U8 green,
+                               U8 blue) override;
 
   PRIVATE:
-    Fw::On state;
+    Fw::On on_off;
     U8 red;
     U8 green;
     U8 blue;
+    Adafruit_NeoPixel pixels;
 };
 
 }  // namespace Drv

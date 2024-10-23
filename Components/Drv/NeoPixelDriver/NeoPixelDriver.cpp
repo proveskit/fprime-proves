@@ -32,7 +32,7 @@ NeoPixelDriver ::~NeoPixelDriver() {}
 // Handler implementations for user-defined typed input ports
 // ----------------------------------------------------------------------
 
-void NeoPixelDriver ::neoPixelOnOff_handler(NATIVE_INT_TYPE portNum, const Fw::On& on_off, U8 red, U8 green, U8 blue) {
+void NeoPixelDriver ::neoPixelWrite_handler(NATIVE_INT_TYPE portNum, const Fw::On& on_off, U8 red, U8 green, U8 blue) {
     this->on_off = on_off;
     this->red = red;
     this->green = green;
@@ -40,8 +40,7 @@ void NeoPixelDriver ::neoPixelOnOff_handler(NATIVE_INT_TYPE portNum, const Fw::O
 
     if (Fw::On::ON == this->on_off) {
         pixels.setPixelColor(0, pixels.Color(red, green, blue));
-    }
-    else {
+    } else {
         pixels.setPixelColor(0, pixels.Color(0, 0, 0));
     }
 

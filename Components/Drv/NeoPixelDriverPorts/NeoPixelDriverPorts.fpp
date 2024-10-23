@@ -1,5 +1,5 @@
 module Drv {
-    port NeoPixelOnOff(
+    port NeoPixelWrite(
         on_off: Fw.On
         $red: U8
         green: U8
