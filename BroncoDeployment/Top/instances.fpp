@@ -60,6 +60,8 @@ module BroncoDeployment {
 
   instance rateDriver: Arduino.HardwareRateDriver base id 0x4A00
 
+  instance neoPixelDriver: Drv.NeoPixelDriver base id 0x4B00
+
   # Hub Connections
 
   instance hub: Svc.GenericHub base id 0x5000
