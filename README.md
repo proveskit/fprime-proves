@@ -124,13 +124,17 @@ git --version
    fprime-util build -j20
    ```
 
+1. Find your board's mount location
+   > For the next steps you'll need to know where your board is mounted. To find your board's mount location run  `ls -lah /dev/tyy*` for a list of all possible paths. On Linux and WSL your board's mount location will look like `/dev/ttyACM0`. On Mac your board's mount location will look like `/dev/tty.usbmodem101`.
+
 1. Upload the firmware to the proves board over USB
+   > Don't forget to replace the board mount location after the `-p` flag
    ```sh
    arduino-cli upload -v -b 115200 --fqbn rp2040:rp2040:rpipico -p /dev/ttyACM0 -i build-artifacts/rpipico/BroncoDeployment/bin/BroncoDeployment.uf2
    ```
 
 1. Run GDS over serial:
+   > Don't forget to replace the board mount location after the `--uard-device` flag
    ```sh
    fprime-gds -n --dictionary build-artifacts/rpipico/BroncoDeployment/dict/BroncoDeploymentTopologyAppDictionary.xml --comm-adapter uart --uart-baud 115200 --uart-device /dev/ttyACM0 --output-unframed-data -
    ```
-    > **Note:** Be sure to replace '--uart-device /dev/ttyACM0' to the proper port you connect to the board!
