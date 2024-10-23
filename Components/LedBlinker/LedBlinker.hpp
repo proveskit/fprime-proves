@@ -43,13 +43,13 @@ class LedBlinker : public LedBlinkerComponentBase {
 
     //! Implementation for BLINKING_ON_OFF command handler
     //! Command to turn on or off the blinking LED
-    void BLINKING_ON_OFF_cmdHandler(
-        const FwOpcodeType opCode, /*!< The opcode*/
-        const U32 cmdSeq, /*!< The command sequence number*/
-        Fw::On on_off /*!< 
-        Indicates whether the blinking should be on or off
-        */
-    );
+    void BLINKING_ON_OFF_cmdHandler(FwOpcodeType opCode,  //!< The opcode
+                                    U32 cmdSeq,           //!< The command sequence number
+                                    Fw::On on_off,        //!< Indicates whether the blinking should be on or off
+                                    U8 red,               //!< Red color value
+                                    U8 green,             //!< Green color value
+                                    U8 blue               //!< Blue color value
+                                    ) override;
 
     //! Emit parameter updated EVR
     //!
@@ -58,6 +58,9 @@ class LedBlinker : public LedBlinkerComponentBase {
 
     PRIVATE:
       Fw::On blinking; //! If LED blinking is on
+      U8 red; //! Red color value
+      U8 green; //! Green color value
+      U8 blue; //! Blue color value
       U64 blinkCount; //! The number of on/off transitions that have occurred from FSW boot up
       U32 cycleCount; //! Keeps track of how many ticks the LED has been on for
 };

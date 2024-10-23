@@ -14,6 +14,9 @@ namespace Components {
 // ----------------------------------------------------------------------
 LedBlinker ::LedBlinker(const char* const compName) : LedBlinkerComponentBase(compName),
     blinking(Fw::On::OFF),
+    red(0),
+    green(0),
+    blue(0),
     blinkCount(0),
     cycleCount(0)
 {
@@ -36,14 +39,14 @@ LedBlinker ::~LedBlinker() {}
         U32 interval = this->paramGet_BLINK_INTERVAL(isValid);
 
         // Force interval to be 0 when invalid or not set
-        interval = ((Fw::ParamValid::INVALID == isValid) || (Fw::ParamValid::UNINIT == isValid)) ? 0 : interval;
+        interval = ((Fw::ParamValid::INVALID == isValid) || (Fw::ParamValid::UNINIT == isValid)) ? 10 : interval;
 
         // Only perform actions when set to blinking
         if (this->blinking == Fw::On::ON) {
             bool transition_occurred = false;
 
             if (0 == this->cycleCount) {
-                this->neoPixelSet_out(0, Fw::On::ON, 255, 0, 0);
+                this->neoPixelSet_out(0, Fw::On::ON, this->red, this->green, this->blue);
 
                 this->blinkCount = this->blinkCount + 1;
                 this->tlmWrite_LedBlinks(this->blinkCount);
@@ -61,30 +64,32 @@ LedBlinker ::~LedBlinker() {}
 // Handler implementations for commands
 // ----------------------------------------------------------------------
 
-void LedBlinker ::
-    BLINKING_ON_OFF_cmdHandler(
-        const FwOpcodeType opCode,
-        const U32 cmdSeq,
-        Fw::On on_off
-    )
-  {
+void LedBlinker ::BLINKING_ON_OFF_cmdHandler(
+        FwOpcodeType opCode,
+        U32 cmdSeq,
+        Fw::On on_off,
+        U8 red,
+        U8 green,
+        U8 blue
+) {
     // Create a variable to represent the command response
     auto cmdResp = Fw::CmdResponse::OK;
 
     // Verify if on_off is a valid argument.
     // Note: isValid is an autogenerate helper function for enums defined in fpp.
-    if(!on_off.isValid())
-    {
+    if(!on_off.isValid()) {
         // Indicates we received an invalid argument.
         this->log_WARNING_LO_InvalidBlinkArgument(on_off);
 
         // Update command response with a validation error
         cmdResp = Fw::CmdResponse::VALIDATION_ERROR;
     }
-    else
-    {
-        this->count = 0; // Reset count on any successful command
+    else {
+        this->cycleCount = 0; // Reset count on any successful command
         this->blinking = on_off; // Update blinking state
+        this->red = red; // Update red color value
+        this->green = green; // Update green color value
+        this->blue = blue; // Update blue color value
 
         // Reports the state we set to blinking.
         this->log_ACTIVITY_HI_SetBlinkingState(on_off);

@@ -5,6 +5,9 @@ module Components {
         @ Command to turn on or off the blinking LED
         async command BLINKING_ON_OFF(
             on_off: Fw.On @< Indicates whether the blinking should be on or off
+            $red: U8 @< Red color value
+            green: U8 @< Green color value
+            blue: U8 @< Blue color value
         )
 
         @ Indicates we received an invalid argument.
@@ -17,13 +20,10 @@ module Components {
             severity activity high \
             format "Set blinking state to {}."
 
+        @ Reports the interval that has been set
         event BlinkIntervalSet(interval: U32) \
             severity activity high \
             format "LED blink interval set to {}"
-        
-        event LedBlinkerState(on_off: Fw.On) \
-            severity activity low \
-            format "LED is {}"
         
         @ Telemetry channel to report blinking state.
         telemetry BlinkingState: Fw.On
