@@ -125,7 +125,7 @@ git --version
    ```
 
 1. Find your board's mount location
-   > For the next steps you'll need to know where your board is mounted. To find your board's mount location run  `ls -lah /dev/tyy*` for a list of all possible paths. On Linux and WSL your board's mount location will look like `/dev/ttyACM0`. On Mac your board's mount location will look like `/dev/tty.usbmodem101`.
+   > For the next steps you'll need to know where your board is mounted. To find your board's mount location run  `ls -lah /dev/tty*` for a list of all possible paths. On Linux and WSL your board's mount location will look like `/dev/ttyACM0`. On Mac your board's mount location will look like `/dev/tty.usbmodem101`.
 
 1. Upload the firmware to the proves board over USB
    > Don't forget to replace the board mount location after the `-p` flag
