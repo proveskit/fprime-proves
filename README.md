@@ -134,7 +134,7 @@ git --version
    ```
 
 1. Run GDS over serial:
-   > Don't forget to replace the board mount location after the `--uard-device` flag
+   > Don't forget to replace the board mount location after the `--uart-device` flag
    ```sh
    fprime-gds -n --dictionary build-artifacts/rpipico/BroncoDeployment/dict/BroncoDeploymentTopologyAppDictionary.xml --comm-adapter uart --uart-baud 115200 --uart-device /dev/ttyACM0 --output-unframed-data -
    ```
