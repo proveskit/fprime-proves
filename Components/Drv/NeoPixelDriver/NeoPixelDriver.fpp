@@ -1,14 +1,32 @@
+# Type definition
+module Drv {
+    struct Color {
+        $red: U8
+        green: U8
+        blue: U8
+    }
+}
+
+# Port definition
+module Drv {
+    port NeoPixelSet(color: Color)
+    port NeoPixelRead -> Color
+}
+
+# Component definition
 module Drv {
     @ FPrime driver implmementation for Adafruit NeoPixel.
     passive component NeoPixelDriver {
-
         @ Port to turn modify the NeoPixel state.
-        sync input port neoPixelWrite: Drv.NeoPixelWrite
+        sync input port neoPixelSet: Drv.NeoPixelSet
+
+        @ Port to read the current NeoPixel state.
+        output port neoPixelRead: Drv.NeoPixelRead
 
         @ Event to report current NeoPixel state.
-        event NeoPixelState(on_off: Fw.On, $red: U8, green: U8, blue: U8) \
+        event NeoPixelState($red: U8, green: U8, blue: U8) \
             severity activity low \
-            format "LED is {} with color ({}, {}, {})"
+            format "LED is set to ({}, {}, {})"
 
         ###############################################################################
         # Standard AC Ports: Required for Channels, Events, Commands, and Parameters  #

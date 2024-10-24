@@ -38,10 +38,6 @@ class NeoPixelDriver : public NeoPixelDriverComponentBase {
                                U8 blue) override;
 
   PRIVATE:
-    Fw::On on_off;
-    U8 red;
-    U8 green;
-    U8 blue;
     Adafruit_NeoPixel pixels;
 };
 
