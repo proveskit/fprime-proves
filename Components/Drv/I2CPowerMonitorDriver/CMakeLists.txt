@@ -14,8 +14,8 @@ set(SOURCE_FILES
 # Uncomment and add any modules that this component depends on, else
 # they might not be available when cmake tries to build this component.
 
-# set(MOD_DEPS
-#     Add your dependencies here
-# )
+set(MOD_DEPS
+  Adafruit_INA219
+)
 
 register_fprime_module()

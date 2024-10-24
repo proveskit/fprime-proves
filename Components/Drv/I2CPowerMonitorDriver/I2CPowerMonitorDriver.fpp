@@ -2,6 +2,22 @@ module Drv {
     @ Wrapper for handling calls to the Adafruit_INA219 library.
     passive component I2CPowerMonitorDriver {
 
+        @ Port to read power information.
+        sync input port I2CpowerMonitorRead: Drv.I2CPowerMonitorRead
+
+        @ Port to command the sensor to sleep and wake.
+        sync input port I2CpowerMonitorWrite: I2CPowerMonitorWrite
+
+        @ Event to report power information.
+        event PowerState(bus_voltage: F32, shunt_voltage: F32, current: F32) \
+            severity activity low \
+            format "Voltage Bus/Shunt: {}/{}. Current: {}."
+
+        @ Event to report information about the state of the sensor itself.
+        event SensorState(state: Fw.On) \
+            severity activity low \
+            format "The INA219 Power Monitor is {}."
+
         ##############################################################################
         #### Uncomment the following examples to start customizing your component ####
         ##############################################################################

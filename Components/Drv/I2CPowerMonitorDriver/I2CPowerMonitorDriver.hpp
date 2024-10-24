@@ -28,7 +28,6 @@ namespace Drv {
 
       //! Destroy I2CPowerMonitorDriver object
       ~I2CPowerMonitorDriver();
-
   };
 
 }
