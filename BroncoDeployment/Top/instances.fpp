@@ -35,11 +35,6 @@ module BroncoDeployment {
     stack size Default.STACK_SIZE \
     priority 96
 
-  instance led: Components.Led base id 0x0E00 \
-    queue size Default.QUEUE_SIZE \
-    stack size Default.STACK_SIZE \
-    priority 95
-
   # ----------------------------------------------------------------------
   # Queued component instances
   # ----------------------------------------------------------------------

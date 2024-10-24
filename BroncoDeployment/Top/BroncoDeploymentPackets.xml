@@ -57,11 +57,6 @@
         <channel name="watchdog.WatchdogPets"/>
     </packet>
 
-    <packet name="LedChannels" id="10" level="1">
-        <channel name="led.LedTransitions"/>
-        <channel name="led.BlinkingState"/>
-    </packet>
-
     <!-- Ignored packets -->
 
     <ignore>

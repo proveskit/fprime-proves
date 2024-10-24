@@ -45,9 +45,9 @@ void Watchdog ::run_handler(NATIVE_INT_TYPE portNum, NATIVE_UINT_TYPE context) {
     // A transition has occurred
     if (this->on_state != new_state)
     {
-        if (this->isConnected_gpioSet_OutputPort(25)) { // causes crash?
+        // if (this->isConnected_gpioSet_OutputPort(25)) { // causes crash?
             // this->gpioSet_out(25, (true == new_state) ? Fw::Logic::HIGH : Fw::Logic::LOW);
-        }
+        // }
         // causes crash
         // this->gpioSet_out(25, (true == new_state) ? Fw::Logic::HIGH : Fw::Logic::LOW);
 
