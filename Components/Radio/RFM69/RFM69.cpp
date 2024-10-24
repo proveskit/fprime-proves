@@ -16,7 +16,7 @@ namespace Radio {
 
 RFM69::RFM69(const char* const compName)
     : RFM69ComponentBase(compName),
-      rfm69(RFM69_CS, RFM69_INT),
+    //   rfm69(RFM69_CS, RFM69_INT),
       radio_state(Fw::On::OFF),
       pkt_rx_count(0),
       pkt_tx_count(0) {
@@ -28,20 +28,20 @@ bool RFM69::send(const U8* payload, NATIVE_UINT_TYPE len) {
     FW_ASSERT(payload != nullptr);
 
     NATIVE_UINT_TYPE offset = 0;
-    while (len > RH_RF69_MAX_MESSAGE_LEN) {
-        rfm69.send(&payload[offset], RH_RF69_MAX_MESSAGE_LEN);
-        if (!rfm69.waitPacketSent(500)) {
-            return false;
-        }
-        delay(1);
-        offset += RH_RF69_MAX_MESSAGE_LEN;
-        len -= RH_RF69_MAX_MESSAGE_LEN;
-    }
+    // while (len > RH_RF69_MAX_MESSAGE_LEN) {
+    //     rfm69.send(&payload[offset], RH_RF69_MAX_MESSAGE_LEN);
+    //     if (!rfm69.waitPacketSent(500)) {
+    //         return false;
+    //     }
+    //     delay(1);
+    //     offset += RH_RF69_MAX_MESSAGE_LEN;
+    //     len -= RH_RF69_MAX_MESSAGE_LEN;
+    // }
 
-    rfm69.send(&payload[offset], len);
-    if (!rfm69.waitPacketSent(500)) {
-        return false;
-    }
+    // rfm69.send(&payload[offset], len);
+    // if (!rfm69.waitPacketSent(500)) {
+    //     return false;
+    // }
 
     pkt_tx_count++;
     this->tlmWrite_NumPacketsSent(pkt_tx_count);
@@ -56,24 +56,24 @@ bool RFM69::send(const U8* payload, NATIVE_UINT_TYPE len) {
 }
 
 void RFM69::recv() {
-    if (rfm69.available()) {
-        U8 buf[RH_RF69_MAX_MESSAGE_LEN];
-        U8 bytes_recv = RH_RF69_MAX_MESSAGE_LEN;
+    // if (rfm69.available()) {
+    //     U8 buf[RH_RF69_MAX_MESSAGE_LEN];
+    //     U8 bytes_recv = RH_RF69_MAX_MESSAGE_LEN;
 
-        if (rfm69.recv(buf, &bytes_recv)) {
-            Fw::Buffer recvBuffer = this->allocate_out(0, bytes_recv);
-            memcpy(recvBuffer.getData(), buf, bytes_recv);
-            recvBuffer.setSize(bytes_recv);
-            pkt_rx_count++;
+    //     if (rfm69.recv(buf, &bytes_recv)) {
+    //         Fw::Buffer recvBuffer = this->allocate_out(0, bytes_recv);
+    //         memcpy(recvBuffer.getData(), buf, bytes_recv);
+    //         recvBuffer.setSize(bytes_recv);
+    //         pkt_rx_count++;
 
-            this->log_DIAGNOSTIC_PayloadMessageRX(recvBuffer.getSize());
+    //         this->log_DIAGNOSTIC_PayloadMessageRX(recvBuffer.getSize());
 
-            this->tlmWrite_NumPacketsReceived(pkt_rx_count);
-            this->tlmWrite_RSSI(rfm69.lastRssi());
+    //         this->tlmWrite_NumPacketsReceived(pkt_rx_count);
+    //         this->tlmWrite_RSSI(rfm69.lastRssi());
 
-            this->comDataOut_out(0, recvBuffer, Drv::RecvStatus::RECV_OK);
-        }
-    }
+    //         this->comDataOut_out(0, recvBuffer, Drv::RecvStatus::RECV_OK);
+    //     }
+    // }
 }
 
 // ----------------------------------------------------------------------
@@ -93,30 +93,30 @@ Drv::SendStatus RFM69 ::comDataIn_handler(const NATIVE_INT_TYPE portNum, Fw::Buf
 void RFM69 ::run_handler(const NATIVE_INT_TYPE portNum, NATIVE_UINT_TYPE context) {
     this->tlmWrite_Status(radio_state);
 
-    if (radio_state == Fw::On::OFF) {
-        if (this->isConnected_gpioReset_OutputPort(0)) {
-            this->gpioReset_out(0, Fw::Logic::HIGH);
-            delay(10);
-            this->gpioReset_out(0, Fw::Logic::LOW);
-            delay(10);
-        }
+    // if (radio_state == Fw::On::OFF) {
+    //     if (this->isConnected_gpioReset_OutputPort(0)) {
+    //         this->gpioReset_out(0, Fw::Logic::HIGH);
+    //         delay(10);
+    //         this->gpioReset_out(0, Fw::Logic::LOW);
+    //         delay(10);
+    //     }
 
-        if (!rfm69.init()) {
-            Fw::Logger::logMsg("Failed to initialize radio... Trying again...\n");
-            return;
-        }
+    //     if (!rfm69.init()) {
+    //         Fw::Logger::logMsg("Failed to initialize radio... Trying again...\n");
+    //         return;
+    //     }
 
-        rfm69.setFrequency(RFM69_FREQ);
-        rfm69.setModemConfig(RH_RF69::ModemConfigChoice::GFSK_Rb250Fd250);
-        rfm69.setTxPower(14, true);
+    //     rfm69.setFrequency(RFM69_FREQ);
+    //     rfm69.setModemConfig(RH_RF69::ModemConfigChoice::GFSK_Rb250Fd250);
+    //     rfm69.setTxPower(14, true);
 
-        Fw::Success radioSuccess = Fw::Success::SUCCESS;
-        if (this->isConnected_comStatus_OutputPort(0)) {
-            this->comStatus_out(0, radioSuccess);
-        }
+    //     Fw::Success radioSuccess = Fw::Success::SUCCESS;
+    //     if (this->isConnected_comStatus_OutputPort(0)) {
+    //         this->comStatus_out(0, radioSuccess);
+    //     }
 
-        radio_state = Fw::On::ON;
-    }
+    //     radio_state = Fw::On::ON;
+    // }
 
     this->recv();
 }

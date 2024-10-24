@@ -14,6 +14,6 @@ set(SOURCE_FILES
 # Uncomment and add any modules that this component depends on, else
 # they might not be available when cmake tries to build this component.
 
-target_use_arduino_libraries("SPI" "RH_RF69")
+# target_use_arduino_libraries("SPI" "RH_RF69")
 
 register_fprime_module()

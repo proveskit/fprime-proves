@@ -8,9 +8,9 @@
 #define RFM69_HPP
 
 #include "Components/Radio/RFM69/RFM69ComponentAc.hpp"
-#include "RH_RF69.h"
-#include "RFM69Pinout.hpp"
-#include <FprimeArduino.hpp>
+// #include "RH_RF69.h"
+// #include "RFM69Pinout.hpp"
+// #include <FprimeArduino.hpp>
 
 namespace Radio {
 
@@ -61,7 +61,7 @@ namespace Radio {
       */
       );
 
-      RH_RF69 rfm69;
+      // RH_RF69 rfm69;
       Fw::On radio_state;
       U16 pkt_rx_count;
       U16 pkt_tx_count;
