@@ -28,6 +28,11 @@ module BroncoDeployment {
     stack size Default.STACK_SIZE \
     priority 97
 
+  instance watchdog: Components.Watchdog base id 0x0400 \
+    queue size Default.QUEUE_SIZE \
+    stack size Default.STACK_SIZE \
+    priority 96
+
   # ----------------------------------------------------------------------
   # Queued component instances
   # ----------------------------------------------------------------------
@@ -75,4 +80,5 @@ module BroncoDeployment {
   # Custom Connections
 
   instance broncoOreMessageHandler: Components.BroncoOreMessageHandler base id 0x6000
+  instance gpioDriver: Arduino.GpioDriver base id 0x4C00
 }

@@ -53,6 +53,10 @@
         <channel name="hubComDriver.Status"/>
     </packet>
 
+    <packet name="WatchdogChannels" id="9" level="1">
+        <channel name="watchdog.WatchdogPets"/>
+    </packet>
+
     <!-- Ignored packets -->
 
     <ignore>

@@ -27,6 +27,7 @@ module BroncoDeployment {
     instance fatalAdapter
     instance fatalHandler
     instance framer
+    instance gpioDriver
     instance rateDriver
     instance rateGroup1
     instance rateGroupDriver
@@ -44,6 +45,7 @@ module BroncoDeployment {
 
     #custom instances
     instance broncoOreMessageHandler 
+    instance watchdog
 
     # ----------------------------------------------------------------------
     # Pattern graph specifiers
@@ -72,6 +74,9 @@ module BroncoDeployment {
       rateGroup1.RateGroupMemberOut[0] -> commDriver.schedIn
       rateGroup1.RateGroupMemberOut[1] -> tlmSend.Run
       rateGroup1.RateGroupMemberOut[2] -> systemResources.run
+
+      # Rate Group 1 (1Hz cycle) ouput is connected to watchdog's run input
+      rateGroup1.RateGroupMemberOut[3] -> watchdog.run
     }
 
     connections FaultProtection {
@@ -107,7 +112,10 @@ module BroncoDeployment {
     connections BroncoDeployment {
       # Add here connections to user-defined components
       broncoOreMessageHandler.send_message -> hub.portIn[0]
-      hub.portOut[0] -> broncoOreMessageHandler.recv_message 
+      hub.portOut[0] -> broncoOreMessageHandler.recv_message
+
+      # watchdog's gpioSet output is connected to gpioDriver's gpioWrite input
+      watchdog.gpioSet -> gpioDriver.gpioWrite
     }
     
     connections HubConnections {
