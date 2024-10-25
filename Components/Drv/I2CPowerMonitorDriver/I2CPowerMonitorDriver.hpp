@@ -40,9 +40,7 @@ namespace Drv {
         F32& current
       );
 
-      void I2CPowerMonitorWrite_Handler(
-        Fw::On sensor_state;
-      );
+      void I2CPowerMonitorWrite_Handler(Fw::On sensor_state);
   };
 
 }

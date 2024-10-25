@@ -20,9 +20,10 @@ namespace Drv {
     I2CPowerMonitorDriver(const char* const compName) : I2CPowerMonitorDriverComponentBase(compName),
       m_sensor_state(Fw::On::OFF)
   {
+      //TODO: deal with errors
       m_sensor = Adafruit_INA219(addr);
       m_sensor.begin();
-      m_sensor_state = Fw::On:ON;
+      m_sensor_state = Fw::On::ON;
   }
 
   I2CPowerMonitorDriver ::
@@ -40,12 +41,6 @@ namespace Drv {
   }
 
   void I2CPowerMonitorDriver::I2CPowerMonitorWrite_Handler(Fw::On sensor_state) {
-    if (sensor_state == FW::On::ON) {
-      m_sensor.begin();
-    } 
-    
-    else {
-      m_sensor.powerSave();
-    }
+    m_sensor.powerSave(sensor_state);
   }
 }
