@@ -8,6 +8,7 @@
 #define Components_Watchdog_HPP
 
 #include "Components/Watchdog/WatchdogComponentAc.hpp"
+#include <Arduino.h>
 
 namespace Components {
 
@@ -37,9 +38,7 @@ class Watchdog : public WatchdogComponentBase {
                      ) override;
   
   PRIVATE:
-    bool on_state = false;
     U64 pet_count = 0;
-    U32 cycle_count = 0;
 };
 
 }  // namespace Components

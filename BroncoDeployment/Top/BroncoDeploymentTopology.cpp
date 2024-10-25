@@ -79,7 +79,7 @@ void configureTopology() {
     deframer.setup(deframing);
 
     // gpioDriver.open(Arduino::DEF_LED_BUILTIN, Arduino::GpioDriver::GpioDirection::OUT);
-    gpioDriver.open(25, Arduino::GpioDriver::GpioDirection::OUT);
+    gpioDriver.open(21, Arduino::GpioDriver::GpioDirection::OUT);
     // bool gpio_success = gpioDriver.open(21, Arduino::GpioDriver::GpioDirection::OUT);
     // if (!gpio_success) {
     //     Fw::Logger::logMsg("[ERROR] Failed to open GPIO pin\n"); // requires os
