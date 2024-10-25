@@ -32,7 +32,14 @@ namespace Drv {
 
   }
 
-  void I2CPowerMonitorDriver::I2CPowerMonitorRead_Handler(F32 &bus_voltage, F32 &shunt_voltage, F32 &current) {
+    void I2CPowerMonitorDriver ::
+    I2CpowerMonitorRead_handler(
+        NATIVE_INT_TYPE portNum,
+        F32& bus_voltage,
+        F32& shunt_voltage,
+        F32& current
+    ) 
+  {
     //TODO: check if the IC2 monitor is turned off. 
 
     bus_voltage = m_sensor.getBusVoltage_V();
@@ -40,7 +47,12 @@ namespace Drv {
     current = m_sensor.getCurrent_mA();
   }
 
-  void I2CPowerMonitorDriver::I2CPowerMonitorWrite_Handler(Fw::On sensor_state) {
-    m_sensor.powerSave(sensor_state);
+  void I2CPowerMonitorDriver ::
+    I2CpowerMonitorWrite_handler(
+        NATIVE_INT_TYPE portNum,
+        const Fw::On& sleep_wake
+    ) 
+  {
+    m_sensor.powerSave(sleep_wake);
   }
 }

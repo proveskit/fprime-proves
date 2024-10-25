@@ -34,13 +34,20 @@ namespace Drv {
       Adafruit_INA219 m_sensor;
       Fw::On m_sensor_state;
 
-      void I2CPowerMonitorRead_Handler(
-        F32& bus_voltage,
-        F32& shunt_voltage,
-        F32& current
-      );
+      void I2CpowerMonitorRead_handler(
+          NATIVE_INT_TYPE portNum, //!< The port number
+          F32& bus_voltage,
+          F32& shunt_voltage,
+          F32& current
+      ) override;
 
-      void I2CPowerMonitorWrite_Handler(Fw::On sensor_state);
+      //! Handler implementation for I2CpowerMonitorWrite
+      //!
+      //! Port to command the sensor to sleep and wake.
+      void I2CpowerMonitorWrite_handler(
+          NATIVE_INT_TYPE portNum, //!< The port number
+          const Fw::On& sleep_wake
+      ) override;
   };
 
 }

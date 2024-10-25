@@ -44,6 +44,8 @@ module BroncoDeployment {
 
     #custom instances
     instance broncoOreMessageHandler 
+    instance INA219PowerMonitor
+    instance I2CPowerMonitorDriver
 
     # ----------------------------------------------------------------------
     # Pattern graph specifiers
@@ -107,9 +109,11 @@ module BroncoDeployment {
     connections BroncoDeployment {
       # Add here connections to user-defined components
       broncoOreMessageHandler.send_message -> hub.portIn[0]
-      hub.portOut[0] -> broncoOreMessageHandler.recv_message 
+      hub.portOut[0] -> broncoOreMessageHandler.recv_message
+
+      INA219PowerMonitor.sleepWake[0] -> I2CPowerMonitorDriver.I2CpowerMonitorWrite
     }
-    
+
     connections HubConnections {
 
       hub.dataOut -> hubFramer.bufferIn
