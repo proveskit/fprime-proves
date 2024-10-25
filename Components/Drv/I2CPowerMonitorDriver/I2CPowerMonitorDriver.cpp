@@ -6,6 +6,9 @@
 
 #include "Components/Drv/I2CPowerMonitorDriver/I2CPowerMonitorDriver.hpp"
 #include "FpConfig.hpp"
+#include "I2CPowerMonitorDriver.hpp"
+
+#define addr 0x40
 
 namespace Drv {
 
@@ -14,10 +17,12 @@ namespace Drv {
   // ----------------------------------------------------------------------
 
   I2CPowerMonitorDriver ::
-    I2CPowerMonitorDriver(const char* const compName) :
-      I2CPowerMonitorDriverComponentBase(compName)
+    I2CPowerMonitorDriver(const char* const compName) : I2CPowerMonitorDriverComponentBase(compName),
+      m_sensor_state(Fw::On::OFF)
   {
-
+      m_sensor = Adafruit_INA219(addr);
+      m_sensor.begin();
+      m_sensor_state = Fw::On:ON;
   }
 
   I2CPowerMonitorDriver ::
@@ -26,4 +31,21 @@ namespace Drv {
 
   }
 
+  void I2CPowerMonitorDriver::I2CPowerMonitorRead_Handler(F32 &bus_voltage, F32 &shunt_voltage, F32 &current) {
+    //TODO: check if the IC2 monitor is turned off. 
+
+    bus_voltage = m_sensor.getBusVoltage_V();
+    shunt_voltage = m_sensor.getShuntVoltage_mV();
+    current = m_sensor.getCurrent_mA();
+  }
+
+  void I2CPowerMonitorDriver::I2CPowerMonitorWrite_Handler(Fw::On sensor_state) {
+    if (sensor_state == FW::On::ON) {
+      m_sensor.begin();
+    } 
+    
+    else {
+      m_sensor.powerSave();
+    }
+  }
 }

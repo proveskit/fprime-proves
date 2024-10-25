@@ -8,6 +8,7 @@
 #define Drv_I2CPowerMonitorDriver_HPP
 
 #include "Components/Drv/I2CPowerMonitorDriver/I2CPowerMonitorDriverComponentAc.hpp"
+#include "lib/Adafruit_INA219/Adafruit_INA219.h"
 
 namespace Drv {
 
@@ -28,6 +29,20 @@ namespace Drv {
 
       //! Destroy I2CPowerMonitorDriver object
       ~I2CPowerMonitorDriver();
+
+    PRIVATE:
+      Adafruit_INA219 m_sensor;
+      Fw::On m_sensor_state;
+
+      void I2CPowerMonitorRead_Handler(
+        F32& bus_voltage,
+        F32& shunt_voltage,
+        F32& current
+      );
+
+      void I2CPowerMonitorWrite_Handler(
+        Fw::On sensor_state;
+      );
   };
 
 }
