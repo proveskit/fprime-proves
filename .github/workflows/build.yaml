@@ -42,7 +42,6 @@ jobs:
     - uses: fprime-community/project-builder@main
       with:
         build_location: BroncoDeployment
-        target_platform: rpipico
     - name: Archive binary
       uses: actions/upload-artifact@v4
       with:
