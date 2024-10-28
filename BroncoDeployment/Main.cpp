@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  Main.cpp
-// \brief main program for the F' application. Intended for CLI-based systems (Linux, macOS)
+// \brief main program for the F' application. Intended for Arduino-based systems
 //
 // ======================================================================
 // Used to access topology functions
@@ -8,17 +8,10 @@
 #include <BroncoDeployment/Top/BroncoDeploymentTopology.hpp>
 
 // Used for Task Runner
-#include <Os/Baremetal/TaskRunner/TaskRunner.hpp>
+#include <fprime-baremetal/Os/TaskRunner/TaskRunner.hpp>
 
 // Used for logging
-#include <Os/Log.hpp>
-#include <Arduino/Os/StreamLog.hpp>
-
-// Instantiate a system logger that will handle Fw::Logger::logMsg calls
-Os::Log logger;
-
-// Task Runner
-Os::TaskRunner taskrunner;
+#include <Arduino/Os/Console.hpp>
 
 /**
  * \brief setup the program
@@ -26,13 +19,13 @@ Os::TaskRunner taskrunner;
  * This is an extraction of the Arduino setup() function.
  * 
  */
-void setup()
-{
-    // Setup Serial
+void setup() {
+    // Initialize OSAL
+    Os::init();
+
+    // Setup Serial and Logging
     Serial.begin(115200);
-    Os::setArduinoStreamLogHandler(&Serial);
-    delay(1000);
-    Fw::Logger::logMsg("Program Started\n");
+    static_cast<Os::Arduino::Console::ArduinoConsoleHandle*>(Os::Console::getSingleton().getHandle())->setOutputStream(&Serial);
 
     // Object for communicating state to the reference topology
     BroncoDeployment::TopologyState inputs;
@@ -41,6 +34,8 @@ void setup()
 
     // Setup topology
     BroncoDeployment::setupTopology(inputs);
+
+    Fw::Logger::log("Program Started\n");
 }
 
 /**
@@ -49,10 +44,9 @@ void setup()
  * This is an extraction of the Arduino loop() function.
  * 
  */
-void loop()
-{
+void loop() {
 #ifdef USE_BASIC_TIMER
     rateDriver.cycle();
 #endif
-    taskrunner.run();
+    Os::Baremetal::TaskRunner::getSingleton().run();
 }
