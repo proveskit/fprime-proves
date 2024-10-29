@@ -11,8 +11,9 @@ set(SOURCE_FILES
   "${CMAKE_CURRENT_LIST_DIR}/RFM69.cpp"
 )
 
-# Uncomment and add any modules that this component depends on, else
-# they might not be available when cmake tries to build this component.
+set(MOD_DEPS
+  Fw/Logger
+)
 
 target_use_arduino_libraries("SPI" "RH_RF69")
 
