@@ -34,6 +34,7 @@ module BroncoDeployment {
     instance textLogger
     instance timeHandler
     instance tlmSend
+    instance helloWorld
 
     #hub instances
     instance hub
