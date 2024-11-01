@@ -75,9 +75,9 @@ module BroncoDeployment {
   # Custom Connections
 
   instance broncoOreMessageHandler: Components.BroncoOreMessageHandler base id 0x6000
-  instance INA219PowerMonitor: Components.INA219PowerMonitor base id 0x6100 \
-    queue size Default.QUEUE_SIZE \
-    stack size Default.STACK_SIZE \
-    priority 96
+  # instance INA219PowerMonitor: Components.INA219PowerMonitor base id 0x6100 \
+  #   queue size Default.QUEUE_SIZE \
+  #   stack size Default.STACK_SIZE \
+  #   priority 96
   instance I2CPowerMonitorDriver: Drv.I2CPowerMonitorDriver base id 0x6200
 }
