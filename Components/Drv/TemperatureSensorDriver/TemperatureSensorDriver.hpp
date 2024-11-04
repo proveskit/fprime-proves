@@ -29,6 +29,28 @@ namespace Drv {
       //! Destroy TemperatureSensorDriver object
       ~TemperatureSensorDriver();
 
+    PRIVATE:
+
+      // ----------------------------------------------------------------------
+      // Handler implementations for user-defined typed input ports
+      // ----------------------------------------------------------------------
+
+      //! Handler implementation for PCT2075TempSensorRead
+      //!
+      //! Port to read temperature sensor data
+      void PCT2075TempSensorRead_handler(
+          NATIVE_INT_TYPE portNum, //!< The port number
+          F32& temperature
+      ) override;
+
+      //! Handler implementation for PCT2075TempSensorWrite
+      //!
+      //! Port to command sensor to sleep and wake
+      void PCT2075TempSensorWrite_handler(
+          NATIVE_INT_TYPE portNum, //!< The port number
+          const Fw::On& sleep_wake
+      ) override;
+
   };
 
 }

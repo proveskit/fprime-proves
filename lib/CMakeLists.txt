@@ -8,4 +8,4 @@ set(PCT2075-SOURCE_FILES
 )
 add_library(Adafruit_PCT2075 ${PCT2075-SOURCE_FILES})
 target_include_directories(Adafruit_PCT2075 PUBLIC "${CMAKE_CURRENT_LIST_DIR}/Adafruit_PCT2075")
-target_include_directories(Adafruit_INA219 PUBLIC "${CMAKE_CURRENT_LIST_DIR}/Adafruit_BusIO")
+target_include_directories(Adafruit_PCT2075 PUBLIC "${CMAKE_CURRENT_LIST_DIR}/Adafruit_BusIO")

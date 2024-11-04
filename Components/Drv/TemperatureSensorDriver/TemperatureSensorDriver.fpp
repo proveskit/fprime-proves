@@ -17,8 +17,11 @@ module Drv {
 
         # @ Example port: receiving calls from the rate group
         # sync input port run: Svc.Sched
-
-        # @ Example parameter
+        
+        @ Port to read temperature sensor data
+        sync input port PCT2075TempSensorRead: PCT2075TempSensorRead
+        @ Port to command sensor to sleep and wake
+        sync input port PCT2075TempSensorWrite: PCT2075TempSensorWrite
         # param PARAMETER_NAME: U32
 
         ###############################################################################

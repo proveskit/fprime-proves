@@ -26,4 +26,26 @@ namespace Drv {
 
   }
 
+  // ----------------------------------------------------------------------
+  // Handler implementations for user-defined typed input ports
+  // ----------------------------------------------------------------------
+
+  void TemperatureSensorDriver ::
+    PCT2075TempSensorRead_handler(
+        NATIVE_INT_TYPE portNum,
+        F32& temperature
+    )
+  {
+    // TODO
+  }
+
+  void TemperatureSensorDriver ::
+    PCT2075TempSensorWrite_handler(
+        NATIVE_INT_TYPE portNum,
+        const Fw::On& sleep_wake
+    )
+  {
+    // TODO
+  }
+
 }
