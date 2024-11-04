@@ -26,4 +26,27 @@ namespace Drv {
 
   }
 
+  // ----------------------------------------------------------------------
+  // Handler implementations for user-defined typed input ports
+  // ----------------------------------------------------------------------
+
+  void MicroChessDriver ::
+    BoardState_handler(
+        NATIVE_INT_TYPE portNum,
+        const Drv::BoardStatePortStrings::StringSize20& state
+    )
+  {
+    // TODO
+  }
+
+  void MicroChessDriver ::
+    MoveRequest_handler(
+        NATIVE_INT_TYPE portNum,
+        const Drv::MoveRequestPortStrings::StringSize20& startPosition,
+        const Drv::MoveRequestPortStrings::StringSize20& endPosition
+    )
+  {
+    // TODO
+  }
+
 }
