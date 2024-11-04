@@ -1,5 +1,5 @@
 set(SOURCE_FILES
-  "${CMAKE_CURRENT_LIST_DIR}/MicroChess/MicroChess.cpp"
+  "${CMAKE_CURRENT_LIST_DIR}/MicroChess/MicroChess.h"
 )
 
 add_library(MicroChess ${SOURCE_FILES})
