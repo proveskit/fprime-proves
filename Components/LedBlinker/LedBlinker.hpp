@@ -24,7 +24,7 @@ class LedBlinker : public LedBlinkerComponentBase {
     //! Destroy LedBlinker object
     ~LedBlinker();
 
-  PRIVATE:
+  private:
     // ----------------------------------------------------------------------
     // Handler implementations for user-defined typed input ports
     // ----------------------------------------------------------------------
@@ -36,7 +36,6 @@ class LedBlinker : public LedBlinkerComponentBase {
                      NATIVE_UINT_TYPE context  //!< The call order
                      ) override;
 
-  PRIVATE:
     // ----------------------------------------------------------------------
     // Handler implementations for commands
     // ----------------------------------------------------------------------
@@ -53,10 +52,35 @@ class LedBlinker : public LedBlinkerComponentBase {
     void parameterUpdated(FwPrmIdType id /*!< The parameter ID*/
     );
 
-    PRIVATE:
-      Fw::On blinkingState;  //!< Whether the LED is blinking or not
-      U64 blinkCount;  //! The number of on/off transitions that have occurred from FSW boot up
-      U32 cycleCount;  //! Keeps track of how many ticks the LED has been on for
+    //! Validate and set the color parameter on update
+    //!
+    void parameterValidateColor(
+    );
+
+    //! Validate and set the interval parameter on update
+    //!
+    void parameterValidateInterval(
+    );
+
+    //! Choose the color to blink
+    //!
+    Drv::NeoPixelColor colorParamOrDefault(
+    );
+
+    //! Choose the interval to blink
+    //!
+    U32 intervalParamOrDefault(
+    );
+
+    //! The LED blinker behavior
+    //!
+    void blink(
+    );
+
+    // Private member variables
+    Fw::On blinkingState;  //!< Whether the LED is blinking or not
+    U64 blinkCount;  //! The number of on/off transitions that have occurred from FSW boot up
+    U32 cycleCount;  //! Keeps track of how many ticks the LED has been on for
 };
 
 }  // namespace Components
