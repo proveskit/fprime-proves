@@ -134,7 +134,7 @@ module BroncoDeployment {
       # Rate Group 1 (1Hz cycle) ouput is connected to led's run input
       rateGroup1.RateGroupMemberOut[3] -> ledBlinker.run
       # led's neopixel output is connected to neoPixelDriver's neoPixelOnOff input
-      ledBlinker.neoPixelSet -> neoPixelDriver.neoPixelWrite
+      ledBlinker.neoPixelSet -> neoPixelDriver.neoPixelSet
     }
 
   }

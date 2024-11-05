@@ -1,32 +1,31 @@
 module Components {
     @ Component to blink an LED driven by a rate group
     active component LedBlinker {
-
         @ Command to turn on or off the blinking LED
         async command BLINKING_ON_OFF(
-            on_off: Fw.On @< Indicates whether the blinking should be on or off
-            $red: U8 @< Red color value
-            green: U8 @< Green color value
-            blue: U8 @< Blue color value
+            blinking_state: Fw.On @< Turn the LED blinking on or off.
         )
-
-        @ Indicates we received an invalid argument.
-        event InvalidBlinkArgument(badArgument: Fw.On) \
-            severity warning low \
-            format "Invalid Blinking Argument: {}"
 
         @ Reports the state we set to blinking.
         event SetBlinkingState(state: Fw.On) \
             severity activity high \
             format "Set blinking state to {}."
 
+        @ Reports the color that has been set
+        event BlinkColorSet(color: Drv.NeoPixelColor) \
+            severity activity high \
+            format "LED blink color set to {}"
+
         @ Reports the interval that has been set
         event BlinkIntervalSet(interval: U32) \
             severity activity high \
             format "LED blink interval set to {}"
-        
+
         @ Telemetry channel to report blinking state.
         telemetry BlinkingState: Fw.On
+
+        @ Telemetry channel to report blinking state.
+        telemetry BlinkingColor: Drv.NeoPixelColor
 
         @ Telemetry channel to report the LED state.
         telemetry LedBlinks: U64
@@ -34,11 +33,14 @@ module Components {
         @ Blinking interval in rate group ticks
         param BLINK_INTERVAL: U32
 
+        @ Blinking interval in rate group ticks
+        param BLINK_COLOR: Drv.NeoPixelColor
+
         @ Port receiving calls from the rate group
         sync input port run: Svc.Sched
 
         @ Port sending calls to the GPIO driver
-        output port neoPixelSet: Drv.NeoPixelWrite
+        output port neoPixelSet: Drv.NeoPixelSet
 
         ###############################################################################
         # Standard AC Ports: Required for Channels, Events, Commands, and Parameters  #

@@ -28,8 +28,13 @@ NeoPixelDriver ::~NeoPixelDriver() {}
 // Handler implementations for user-defined typed input ports
 // ----------------------------------------------------------------------
 
-void NeoPixelDriver ::neoPixelWrite_handler(NATIVE_INT_TYPE portNum, U8 red, U8 green, U8 blue) {
-    pixels.setPixelColor(0, pixels.Color(red, green, blue));
+Drv::NeoPixelColor NeoPixelDriver ::neoPixelRead_handler(NATIVE_INT_TYPE portNum) {
+    uint16_t color = pixels.getPixelColor(0);
+    return Drv::NeoPixelColor((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF);
+}
+
+void NeoPixelDriver ::neoPixelSet_handler(NATIVE_INT_TYPE portNum, const Drv::NeoPixelColor& color) {
+    pixels.setPixelColor(0, pixels.Color(color.getred(), color.getgreen(), color.getblue()));
     pixels.show();
 }
 

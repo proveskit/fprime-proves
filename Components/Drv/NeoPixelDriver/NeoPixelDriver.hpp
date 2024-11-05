@@ -30,12 +30,17 @@ class NeoPixelDriver : public NeoPixelDriverComponentBase {
     // Handler implementations for user-defined typed input ports
     // ----------------------------------------------------------------------
 
-    //! Handler implementation for onOff
-    void neoPixelWrite_handler(NATIVE_INT_TYPE portNum,  //!< The port number
-                               const Fw::On& on_off,
-                               U8 red,
-                               U8 green,
-                               U8 blue) override;
+    //! Handler implementation for neoPixelRead
+    //!
+    //! Port to read the current NeoPixel state.
+    Drv::NeoPixelColor neoPixelRead_handler(NATIVE_INT_TYPE portNum  //!< The port number
+                                    ) override;
+
+    //! Handler implementation for neoPixelSet
+    //!
+    //! Port to turn modify the NeoPixel state.
+    void neoPixelSet_handler(NATIVE_INT_TYPE portNum,  //!< The port number
+                             const Drv::NeoPixelColor& color) override;
 
   PRIVATE:
     Adafruit_NeoPixel pixels;
