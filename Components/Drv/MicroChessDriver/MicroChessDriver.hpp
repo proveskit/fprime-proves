@@ -44,8 +44,8 @@ namespace Drv {
       //! Handler implementation for MoveRequest
       void MoveRequest_handler(
           NATIVE_INT_TYPE portNum, //!< The port number
-          const Drv::MoveRequestPortStrings::StringSize20& startPosition, //!< not sure if to take strings
-          const Drv::MoveRequestPortStrings::StringSize20& endPosition
+          U32 startPosition, //!< changed to unsigned 32 bit int
+          U32 endPosition
       ) override;
 
   };
@@ -53,3 +53,4 @@ namespace Drv {
 }
 
 #endif
+

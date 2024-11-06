@@ -42,8 +42,8 @@ namespace Drv {
   void MicroChessDriver ::
     MoveRequest_handler(
         NATIVE_INT_TYPE portNum,
-        const Drv::MoveRequestPortStrings::StringSize20& startPosition,
-        const Drv::MoveRequestPortStrings::StringSize20& endPosition
+        U32 startPosition,
+        U32 endPosition
     )
   {
     // TODO
