@@ -44,6 +44,8 @@ module BroncoDeployment {
 
     #custom instances
     instance broncoOreMessageHandler 
+    instance ledBlinker
+    instance neoPixelDriver
 
     # ----------------------------------------------------------------------
     # Pattern graph specifiers
@@ -126,6 +128,15 @@ module BroncoDeployment {
       hubDeframer.bufferOut -> hub.dataIn
       hub.dataInDeallocate -> bufferManager.bufferSendIn
     }
+
+    # Named connection group
+    connections LedConnections {
+      # Rate Group 1 (1Hz cycle) ouput is connected to led's run input
+      rateGroup1.RateGroupMemberOut[3] -> ledBlinker.run
+      # led's neopixel output is connected to neoPixelDriver's neoPixelOnOff input
+      ledBlinker.neoPixelSet -> neoPixelDriver.neoPixelSet
+    }
+
   }
 
 }

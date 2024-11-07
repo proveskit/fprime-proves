@@ -27,6 +27,11 @@ module BroncoDeployment {
     queue size Default.QUEUE_SIZE \
     stack size Default.STACK_SIZE \
     priority 97
+  
+  instance ledBlinker: Components.LedBlinker base id 0x0E00 \
+    queue size Default.QUEUE_SIZE \
+    stack size Default.STACK_SIZE \
+    priority 95
 
   # ----------------------------------------------------------------------
   # Queued component instances
@@ -60,6 +65,8 @@ module BroncoDeployment {
 
   instance rateDriver: Arduino.HardwareRateDriver base id 0x4A00
 
+  instance neoPixelDriver: Drv.NeoPixelDriver base id 0x4C00
+
   # Hub Connections
 
   instance hub: Svc.GenericHub base id 0x5000
@@ -69,8 +76,6 @@ module BroncoDeployment {
   instance hubFramer: Svc.Framer base id 0x5200
 
   instance hubComDriver: Radio.RFM69 base id 0x5300
-
-
 
   # Custom Connections
 
