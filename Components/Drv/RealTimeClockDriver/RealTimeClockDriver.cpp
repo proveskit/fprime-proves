@@ -30,19 +30,20 @@ namespace Drv {
   // Handler implementations for user-defined typed input ports
   // ----------------------------------------------------------------------
 
-  U64 RealTimeClockDriver ::
+  U32 RealTimeClockDriver ::
     RealTimeClockGet_handler(NATIVE_INT_TYPE portNum)
   {
-    // TODO return
+    return RVobj.getUNIX();
   }
 
-  void RealTimeClockDriver ::
+  Drv::RtcStatus RealTimeClockDriver ::
     RealTimeClockSet_handler(
         NATIVE_INT_TYPE portNum,
-        U64 currentTime
+        U32 currentTime
     )
   {
-    // TODO
+    bool acknowedge = RVobj.setUNIX(currentTime);
+    return (acknowedge) ? Drv::RtcStatus::RTC_OK : Drv::RtcStatus::RTC_ERR ;
   }
 
 }

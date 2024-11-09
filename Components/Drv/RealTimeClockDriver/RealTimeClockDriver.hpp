@@ -8,6 +8,7 @@
 #define Drv_RealTimeClockDriver_HPP
 
 #include "Components/Drv/RealTimeClockDriver/RealTimeClockDriverComponentAc.hpp"
+#include <lib/RV-3028_C7-Arduino_Library/src/RV-3028-C7.h>"
 
 namespace Drv {
 
@@ -30,20 +31,20 @@ namespace Drv {
       ~RealTimeClockDriver();
 
     PRIVATE:
-
+      RV3028 RVobj;
       // ----------------------------------------------------------------------
       // Handler implementations for user-defined typed input ports
       // ----------------------------------------------------------------------
 
       //! Handler implementation for RealTimeClockGet
-      U64 RealTimeClockGet_handler(
+      U32 RealTimeClockGet_handler(
           NATIVE_INT_TYPE portNum //!< The port number
       ) override;
 
       //! Handler implementation for RealTimeClockSet
-      void RealTimeClockSet_handler(
+      Drv::RtcStatus RealTimeClockSet_handler(
           NATIVE_INT_TYPE portNum, //!< The port number
-          U64 currentTime
+          U32 currentTime
       ) override;
 
   };
