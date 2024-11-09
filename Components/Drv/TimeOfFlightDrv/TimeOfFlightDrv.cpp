@@ -19,7 +19,7 @@ namespace Drv {
       tof(I2CADDR)
     {
       tof.begin();
-    } 
+    }
 
   TimeOfFlightDrv ::
     ~TimeOfFlightDrv()
@@ -27,18 +27,11 @@ namespace Drv {
 
   }
 
-  // ----------------------------------------------------------------------
-  // Handler implementations for user-defined typed input ports
-  // ----------------------------------------------------------------------
-
   Drv::TimeOfFlightDrv ::distanceRead_handler(NATIVE_INT_TYPE portNum) {
-      uint8_t range = tof.readRange();
-      return range; 
-  }
-  //ambientRead_handler
-  //setCalibration_handler
-
-  
-
+    uint8_t range = tof.getRange();
+    return range; //idk
+}
+//read ambiant light value
+//set calibration value
 
 }

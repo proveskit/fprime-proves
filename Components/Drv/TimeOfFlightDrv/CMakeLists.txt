@@ -14,8 +14,8 @@ set(SOURCE_FILES
 # Uncomment and add any modules that this component depends on, else
 # they might not be available when cmake tries to build this component.
 
-set(MOD_DEPS
-     Adafruit_VL6180X
-)
+# set(MOD_DEPS
+#     Add your dependencies here
+# )
 
 register_fprime_module()
