@@ -75,4 +75,9 @@ module BroncoDeployment {
   # Custom Connections
 
   instance broncoOreMessageHandler: Components.BroncoOreMessageHandler base id 0x6000
+  # instance TemperatureSensor: Components.TemerpatureSensor base id 0x6100 \
+  #   queue size Default.QUEUE_SIZE \
+  #   stack size Default.STACK_SIZE \
+  #   priority 96
+  instance TemperatureSensorDriver: Drv.TemperatureSensorDriver base id 0x6200
 }

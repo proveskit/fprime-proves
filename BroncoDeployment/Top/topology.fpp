@@ -44,6 +44,8 @@ module BroncoDeployment {
 
     #custom instances
     instance broncoOreMessageHandler 
+    #instance TemperatureSensor
+    instance TemperatureSensorDriver
 
     # ----------------------------------------------------------------------
     # Pattern graph specifiers
@@ -108,6 +110,8 @@ module BroncoDeployment {
       # Add here connections to user-defined components
       broncoOreMessageHandler.send_message -> hub.portIn[0]
       hub.portOut[0] -> broncoOreMessageHandler.recv_message 
+
+      # TemperatureSensor.sleep_wake[0] -> TemperatureSensorDriver.PCT2075TempSensorWrite
     }
     
     connections HubConnections {
