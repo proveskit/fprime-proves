@@ -8,6 +8,7 @@
 #define Drv_MicroChessDriver_HPP
 
 #include "Components/Drv/MicroChessDriver/MicroChessDriverComponentAc.hpp"
+#include "lib/MicroChess/MicroChess.h"
 
 namespace Drv {
 
@@ -48,6 +49,10 @@ namespace Drv {
           U32 endPosition
       ) override;
 
+      PRIVATE:
+      //MicroChess microChess; <planned to use setup() but runs main loop automatically
+      Board board;
+      Game game;
   };
 
 }

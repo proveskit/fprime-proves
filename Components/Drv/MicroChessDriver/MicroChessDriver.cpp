@@ -17,7 +17,8 @@ namespace Drv {
     MicroChessDriver(const char* const compName) :
       MicroChessDriverComponentBase(compName)
   {
-
+    board.init();
+    game.init();
   }
 
   MicroChessDriver ::
@@ -46,7 +47,7 @@ namespace Drv {
         U32 endPosition
     )
   {
-    // TODO
+    board.set(startPosition, )
   }
 
 }
