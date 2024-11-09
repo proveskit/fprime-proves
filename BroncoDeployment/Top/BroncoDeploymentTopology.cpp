@@ -77,6 +77,9 @@ void configureTopology() {
     // Framer and Deframer components need to be passed a protocol handler
     framer.setup(framing);
     deframer.setup(deframing);
+
+    // Open the Watchdog GPIO pin
+    gpioDriver.open(21, Arduino::GpioDriver::GpioDirection::OUT);
 }
 
 // Public functions for use in main program are namespaced with deployment name BroncoDeployment
