@@ -7,6 +7,7 @@
 #include "Components/Drv/TemperatureSensorDriver/TemperatureSensorDriver.hpp"
 #include "FpConfig.hpp"
 
+#define addr 0x4F
 namespace Drv {
 
   // ----------------------------------------------------------------------
@@ -17,13 +18,14 @@ namespace Drv {
     TemperatureSensorDriver(const char* const compName) :
       TemperatureSensorDriverComponentBase(compName)
   {
-
+    sensor = Adafruit_PCT2075();
+    sensor.begin(addr);
+    sensor_state = Fw::On::ON;
   }
 
   TemperatureSensorDriver ::
     ~TemperatureSensorDriver()
   {
-
   }
 
   // ----------------------------------------------------------------------
@@ -36,7 +38,7 @@ namespace Drv {
         F32& temperature
     )
   {
-    // TODO
+    temperature = sensor.getTemperature();
   }
 
   void TemperatureSensorDriver ::
@@ -45,7 +47,7 @@ namespace Drv {
         const Fw::On& sleep_wake
     )
   {
-    // TODO
+    
   }
 
 }

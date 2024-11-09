@@ -2,6 +2,15 @@ module Drv {
     @ Driver for the PCT2075 Temperature Sensor
     passive component TemperatureSensorDriver {
 
+        @ Event to report current temperature
+        event TemperatureState(temperature:F32) \
+            severity activity low \
+            format "Temperature: {}."
+
+        event SensorState(state: Fw.On) \
+            severity activity low \
+            format "PCT2075 sensor is {}."
+        
         ##############################################################################
         #### Uncomment the following examples to start customizing your component ####
         ##############################################################################
@@ -35,6 +44,12 @@ module Drv {
 
         @Port to set the value of a parameter
         param set port prmSetOut
+
+        @ Port for sending textual representation of events
+        text event port logTextOut
+
+        @ Port for sending events to downlink
+        event port logOut
 
     }
 }

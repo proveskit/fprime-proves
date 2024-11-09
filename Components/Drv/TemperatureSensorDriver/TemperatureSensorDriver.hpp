@@ -8,6 +8,7 @@
 #define Drv_TemperatureSensorDriver_HPP
 
 #include "Components/Drv/TemperatureSensorDriver/TemperatureSensorDriverComponentAc.hpp"
+#include "lib/Adafruit_PCT2075/Adafruit_PCT2075.h"
 
 namespace Drv {
 
@@ -30,7 +31,8 @@ namespace Drv {
       ~TemperatureSensorDriver();
 
     PRIVATE:
-
+      Adafruit_PCT2075 sensor;
+      Fw::On sensor_state;
       // ----------------------------------------------------------------------
       // Handler implementations for user-defined typed input ports
       // ----------------------------------------------------------------------
