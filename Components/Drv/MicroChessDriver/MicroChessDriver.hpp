@@ -9,6 +9,8 @@
 
 #include "Components/Drv/MicroChessDriver/MicroChessDriverComponentAc.hpp"
 #include "lib/MicroChess/MicroChess.h"
+#include "lib/MicroChess/board.h"
+#include "lib/MicroChess/game.h"
 
 namespace Drv {
 
@@ -51,8 +53,8 @@ namespace Drv {
 
       PRIVATE:
       //MicroChess microChess; <planned to use setup() but runs main loop automatically
-      Board board;
-      Game game;
+      board_t board;
+      game_t game;
   };
 
 }

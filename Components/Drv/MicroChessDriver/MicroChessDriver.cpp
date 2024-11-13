@@ -7,6 +7,7 @@
 #include "Components/Drv/MicroChessDriver/MicroChessDriver.hpp"
 #include "FpConfig.hpp"
 
+
 namespace Drv {
 
   // ----------------------------------------------------------------------
@@ -47,7 +48,8 @@ namespace Drv {
         U32 endPosition
     )
   {
-    board.set(startPosition, )
+    board.set(startPosition, Empty);
+    board.set(endPosition, Empty);
   }
 
 }
