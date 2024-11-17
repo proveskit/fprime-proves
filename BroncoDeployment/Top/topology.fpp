@@ -44,6 +44,8 @@ module BroncoDeployment {
 
     #custom instances
     instance broncoOreMessageHandler 
+    instance chessManager
+    instance chessDriver
 
     # ----------------------------------------------------------------------
     # Pattern graph specifiers
@@ -108,6 +110,7 @@ module BroncoDeployment {
       # Add here connections to user-defined components
       broncoOreMessageHandler.send_message -> hub.portIn[0]
       hub.portOut[0] -> broncoOreMessageHandler.recv_message 
+
     }
     
     connections HubConnections {
@@ -125,6 +128,10 @@ module BroncoDeployment {
       hubDeframer.bufferAllocate -> bufferManager.bufferGetCallee
       hubDeframer.bufferOut -> hub.dataIn
       hub.dataInDeallocate -> bufferManager.bufferSendIn
+    } 
+
+    connections ChessConnections {
+      chessManager.movePiece -> chessDriver.movePiece
     }
   }
 
