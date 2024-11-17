@@ -35,12 +35,12 @@ namespace Compponents {
       // Handler implementations for commands
       // ----------------------------------------------------------------------
 
-      //! Handler implementation for command TODO
-      //!
-      //! TODO
-      void TODO_cmdHandler(
+      //! Handler implementation for command Movie_Piece
+      void Movie_Piece_cmdHandler(
           FwOpcodeType opCode, //!< The opcode
-          U32 cmdSeq //!< The command sequence number
+          U32 cmdSeq, //!< The command sequence number
+          U32 startPosition,
+          U32 endPosition
       ) override;
 
   };

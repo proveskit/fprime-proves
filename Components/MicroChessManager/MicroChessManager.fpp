@@ -7,13 +7,15 @@ module Compponents {
             endPosition: U32
         )
 
+        output port sendCommand: Drv.MoveRequest
+
         #async command Display_Board (
 
         #)
 
         event Piece_Moved (startingPosition: U32, endPosition: U32) \ 
             severity activity high \ 
-            format "Piece might be moved ?!{}"
+            format "Piece might be moved?! from:{} to:{}"
 
         telemetry Move_Count: U32
         ##############################################################################

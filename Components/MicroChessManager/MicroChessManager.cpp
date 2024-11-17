@@ -31,12 +31,14 @@ namespace Compponents {
   // ----------------------------------------------------------------------
 
   void MicroChessManager ::
-    TODO_cmdHandler(
+    Movie_Piece_cmdHandler(
         FwOpcodeType opCode,
-        U32 cmdSeq
+        U32 cmdSeq,
+        U32 startPosition,
+        U32 endPosition
     )
   {
-    // TODO
+    this->sendCommand_out(0, startPosition, endPosition);
     this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
   }
 
