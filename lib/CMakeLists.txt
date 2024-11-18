@@ -1,5 +1,6 @@
 set(SOURCE_FILES
-    "${CMAKE_CURRENT_LIST_DIR}/chess/main.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/chess/game.h"
+    "${CMAKE_CURRENT_LIST_DIR}/chess/board.h"
 )
 
 add_library(chess ${SOURCE_FILES})
