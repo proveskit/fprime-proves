@@ -28,10 +28,10 @@ module BroncoDeployment {
     stack size Default.STACK_SIZE \
     priority 97
 
-  instance chessManager: Components.ChessManager base id 0x0E00 \
+  instance chessManager: Components.ChessManager base id 0x0F00 \
     queue size Default.QUEUE_SIZE \
     stack size Default.STACK_SIZE \
-    priority 95
+    priority 50
 
   # ----------------------------------------------------------------------
   # Queued component instances

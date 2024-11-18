@@ -38,6 +38,7 @@ namespace Components {
         U32 endPos
     )
   {
+
     this->movePiece_out(0, startPos, endPos);
     this->tlmWrite_Move_Count(0);
     this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);

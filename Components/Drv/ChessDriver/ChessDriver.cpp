@@ -41,7 +41,8 @@ namespace Drv {
   {
     Player* currentPlayer = Game::getNextPlayer();
     currentPlayer->makeMove(startPos, endPos);
-    Board::getBoard()->display(cout);
+    this->log_ACTIVITY_HI_displayBoard(Board::getBoard()->display(cout));// declare event in .fpp
+    //this->ByteStreamSend() could use this?
   }
 
 }

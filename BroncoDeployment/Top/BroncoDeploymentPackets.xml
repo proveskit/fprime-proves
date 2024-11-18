@@ -53,7 +53,7 @@
         <channel name="hubComDriver.Status"/>
     </packet>
 
-    <packet name="ChessChannels" id ="9" level="3">
+    <packet name="ChessChannels" id="9" level="3">
         <channel name="chessManager.Move_Count"/>
     </packet>
 
