@@ -44,7 +44,7 @@ namespace Drv {
           const Drv::Location& endPos
       ) override;
 
-      Square::underlying convert (Drv.Location pos);
+      Square::underlying convert (Drv::Location pos);
 
       PRIVATE:
       Board board = Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
