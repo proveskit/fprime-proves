@@ -8,9 +8,8 @@
 #define Drv_ChessDriver_HPP
 
 #include "Components/Drv/ChessDriver/ChessDriverComponentAc.hpp"
-#include "lib/chess/main.cpp"
-#include "lib/chess/game.h"
-#include "lib/chess/board.h"
+#include "lib/chess-library/include/chess.hpp"
+using namespace chess;
 
 namespace Drv {
 
@@ -41,10 +40,13 @@ namespace Drv {
       //! Handler implementation for movePiece
       void movePiece_handler(
           NATIVE_INT_TYPE portNum, //!< The port number
-          U32 startPos,
-          U32 endPos
+          const Drv::Location& startPos,
+          const Drv::Location& endPos
       ) override;
-      
+
+      PRIVATE:
+      Board board = Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+
   };
 
 }

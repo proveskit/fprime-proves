@@ -17,9 +17,7 @@ namespace Drv {
     ChessDriver(const char* const compName) :
       ChessDriverComponentBase(compName)
   {
-    Player* currentPlayer = NULL;
-    Game::initialize();
-    Board::getBoard()->display(cout);
+
   }
 
   ChessDriver ::
@@ -35,14 +33,11 @@ namespace Drv {
   void ChessDriver ::
     movePiece_handler(
         NATIVE_INT_TYPE portNum,
-        U32 startPos,
-        U32 endPos
+        const Drv::Location& startPos,
+        const Drv::Location& endPos
     )
   {
-    Player* currentPlayer = Game::getNextPlayer();
-    currentPlayer->makeMove(startPos, endPos);
-    this->log_ACTIVITY_HI_displayBoard(Board::getBoard()->display(cout));// declare event in .fpp
-    //this->ByteStreamSend() could use this?
+    // TODO
   }
 
 }
