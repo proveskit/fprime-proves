@@ -5,5 +5,8 @@
 	path = fprime-arduino
 	url = https://github.com/fprime-community/fprime-arduino.git
 [submodule "chess"]
-	path = chess
+	path = lib/chess
+	url = https://github.com/jironghuang/chess.git
+[submodule "lib/chess"]
+	path = lib/chess
 	url = https://github.com/jironghuang/chess.git
