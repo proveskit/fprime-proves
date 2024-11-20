@@ -6,6 +6,7 @@
 
 #include "Components/Drv/ChessDriver/ChessDriver.hpp"
 #include "FpConfig.hpp"
+#include "Fw/Types/StringUtils.hpp"
 using namespace chess;
 namespace Drv {
 
@@ -105,7 +106,7 @@ namespace Drv {
   Drv::displayBoardPortStrings::StringSize80 ChessDriver ::
     displayBoard_handler(NATIVE_INT_TYPE portNum)
   {
-    return board.getFen(bool movec = true);
+    return board.getFen(true).c_str();
   }
   
   void ChessDriver ::

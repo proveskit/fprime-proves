@@ -73,6 +73,5 @@ module Drv {
     )
 
     port displayBoard (
-        ref display: string 
     ) -> string #returns string
 }
