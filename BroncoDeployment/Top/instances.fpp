@@ -28,6 +28,11 @@ module BroncoDeployment {
     stack size Default.STACK_SIZE \
     priority 97
 
+  instance RealTimeClockManager: Components.RealTimeClockManager base id 0x6100 \
+    queue size Default.QUEUE_SIZE \
+    stack size Default.STACK_SIZE \
+    priority 96
+
   # ----------------------------------------------------------------------
   # Queued component instances
   # ----------------------------------------------------------------------
@@ -60,6 +65,8 @@ module BroncoDeployment {
 
   instance rateDriver: Arduino.HardwareRateDriver base id 0x4A00
 
+  instance RealTimeClockDriver: Drv.RealTimeClockDriver base id 0x7000
+
   # Hub Connections
 
   instance hub: Svc.GenericHub base id 0x5000
@@ -75,4 +82,9 @@ module BroncoDeployment {
   # Custom Connections
 
   instance broncoOreMessageHandler: Components.BroncoOreMessageHandler base id 0x6000
+
+  
+
+
+
 }

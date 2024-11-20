@@ -45,6 +45,11 @@ module BroncoDeployment {
     #custom instances
     instance broncoOreMessageHandler 
 
+    instance RealTimeClockManager
+    instance RealTimeClockDriver
+
+
+
     # ----------------------------------------------------------------------
     # Pattern graph specifiers
     # ----------------------------------------------------------------------
@@ -126,6 +131,14 @@ module BroncoDeployment {
       hubDeframer.bufferOut -> hub.dataIn
       hub.dataInDeallocate -> bufferManager.bufferSendIn
     }
+
+    connections RealTimeClockConnections{
+
+      RealTimeClockManager.RealTimeClockDriverSet -> RealTimeClockDriver.RealTimeClockSet
+      RealTimeClockManager.RealTimeClockDriverGet -> RealTimeClockDriver.RealTimeClockGet
+    }
+
+
   }
 
 }
