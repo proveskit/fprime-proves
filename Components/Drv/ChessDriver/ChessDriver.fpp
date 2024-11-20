@@ -3,6 +3,8 @@ module Drv {
     passive component ChessDriver {
 
         sync input port movePiece: movePiece
+
+        sync input port displayBoard: displayBoard
         
         ###############################################################################
         # Standard AC Ports: Required for Channels, Events, Commands, and Parameters  #

@@ -37,6 +37,12 @@ namespace Drv {
       // Handler implementations for user-defined typed input ports
       // ----------------------------------------------------------------------
 
+      //! Handler implementation for displayBoard
+      Drv::displayBoardPortStrings::StringSize80 displayBoard_handler(
+          NATIVE_INT_TYPE portNum //!< The port number
+      ) override;
+
+      
       //! Handler implementation for movePiece
       void movePiece_handler(
           NATIVE_INT_TYPE portNum, //!< The port number

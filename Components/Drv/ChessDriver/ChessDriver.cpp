@@ -102,6 +102,12 @@ namespace Drv {
       return Square::underlying::NO_SQ;
   }
 
+  Drv::displayBoardPortStrings::StringSize80 ChessDriver ::
+    displayBoard_handler(NATIVE_INT_TYPE portNum)
+  {
+    return board.getFen(bool movec = true);
+  }
+  
   void ChessDriver ::
     movePiece_handler(
         NATIVE_INT_TYPE portNum,

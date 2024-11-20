@@ -71,4 +71,8 @@ module Drv {
         startPos: Location
         endPos: Location
     )
+
+    port displayBoard (
+        ref display: string 
+    ) -> string #returns string
 }
