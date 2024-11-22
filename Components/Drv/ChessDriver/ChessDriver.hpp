@@ -38,8 +38,9 @@ namespace Drv {
       // ----------------------------------------------------------------------
 
       //! Handler implementation for displayBoard
-      Drv::displayBoardPortStrings::StringSize80 displayBoard_handler(
-          NATIVE_INT_TYPE portNum //!< The port number
+      void displayBoard_handler(
+          NATIVE_INT_TYPE portNum, //!< The port number
+          Drv::displayBoardPortStrings::StringSize80& display
       ) override;
 
       

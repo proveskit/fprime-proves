@@ -103,10 +103,13 @@ namespace Drv {
       return Square::underlying::NO_SQ;
   }
 
-  Drv::displayBoardPortStrings::StringSize80 ChessDriver ::
-    displayBoard_handler(NATIVE_INT_TYPE portNum)
+  void ChessDriver ::
+    displayBoard_handler(
+        NATIVE_INT_TYPE portNum,
+        Drv::displayBoardPortStrings::StringSize80& display
+    )
   {
-    return board.getFen(true).c_str();
+    display = board.getFen(true).c_str();
   }
   
   void ChessDriver ::
