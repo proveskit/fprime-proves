@@ -36,13 +36,11 @@ namespace Components {
       // ----------------------------------------------------------------------
 
       //! Handler implementation for command movePiece
-      //!
-      //! TODO
       void movePiece_cmdHandler(
           FwOpcodeType opCode, //!< The opcode
           U32 cmdSeq, //!< The command sequence number
-          U32 startPos,
-          U32 endPos
+          Drv::Location startPos,
+          Drv::Location endPos
       ) override;
 
   };

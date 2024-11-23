@@ -132,6 +132,7 @@ module BroncoDeployment {
 
     connections ChessConnections {
       chessManager.movePiece -> chessDriver.movePiece
+      chessManager.displayBoard -> chessDriver.displayBoard
     }
   }
 

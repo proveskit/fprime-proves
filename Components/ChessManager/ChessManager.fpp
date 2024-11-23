@@ -2,12 +2,9 @@ module Components {
     @ manages chessdriver component
     active component ChessManager {
 
-        # One async command/port is required for active components
-        # This should be overridden by the developers with a useful command/port
-        @ TODO
         async command movePiece(
-            startPos: U32
-            endPos: U32
+            startPos: Drv.Location
+            endPos: Drv.Location
         )
 
         output port movePiece: Drv.movePiece
@@ -16,7 +13,7 @@ module Components {
 
         telemetry chessBoard: string size 80
 
-        event Piece_Moved (startPos: U32, endPos: U32) \
+        event Piece_Moved (startPos: Drv.Location, endPos: Drv.Location) \
             severity activity high \
             format "Piece moved from: {} to: {}"
 

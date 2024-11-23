@@ -54,7 +54,7 @@
     </packet>
 
     <packet name="ChessChannels" id="9" level="3">
-        <channel name="chessManager.Move_Count"/>
+        <channel name="chessManager.chessBoard"/>
     </packet>
 
     <!-- Ignored packets -->

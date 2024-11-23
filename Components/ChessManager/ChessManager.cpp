@@ -34,13 +34,15 @@ namespace Components {
     movePiece_cmdHandler(
         FwOpcodeType opCode,
         U32 cmdSeq,
-        U32 startPos,
-        U32 endPos
+        Drv::Location startPos,
+        Drv::Location endPos
     )
   {
-
     this->movePiece_out(0, startPos, endPos);
-    this->tlmWrite_Move_Count(0);
+    Drv::displayBoardPortStrings::StringSize80 display;
+    this->displayBoard_out(0, display);
+    this->tlmWrite_chessBoard(display);
+    this->log_ACTIVITY_HI_Piece_Moved(startPos, endPos);
     this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
   }
 
