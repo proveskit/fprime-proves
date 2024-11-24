@@ -15,7 +15,7 @@ set(SOURCE_FILES
 # they might not be available when cmake tries to build this component.
 
 set(MOD_DEPS
-    chess
+    chess-library
 )
 
 register_fprime_module()
