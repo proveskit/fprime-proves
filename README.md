@@ -125,12 +125,14 @@ git --version
    ```
 
 1. Find your board's mount location
-   > For the next steps you'll need to know where your board is mounted. To find your board's mount location run  `ls -lah /dev/tty*` for a list of all possible paths. On Linux and WSL your board's mount location will look like `/dev/ttyACM0`. On Mac your board's mount location will look like `/dev/tty.usbmodem101`.
+   > For the next steps you'll need to know where your board is mounted. To find your board's mount location run  `ls -lah /dev/tty*` for a list of all possible paths. On Linux and WSL your board's mount location will look like `/dev/ttyACM0`. On Mac your board's mount location will look like `/dev/tty.usbmodem101`. Make sure there is no previous fireware on the device. If that is the case then it should show up under media which it will the be `/media/$USER/ RPI-RP2`.
+
+   If you run into the problem of permission denied on Linux then you will need to add your user to the group that the RP is connected to. To add it to a group you can do the following: `sudo gpasswd -a $USER <group_name>` it most likly will be dialout. You can check that this has been brought into effect by doing `sudo adduser $USER <group_name>`. It will say your user has been added to the group. To put these changes into effect do a system restart.
 
 1. Upload the firmware to the proves board over USB
    > Don't forget to replace the board mount location after the `-p` flag
    ```sh
-   arduino-cli upload -v -b 115200 --fqbn rp2040:rp2040:rpipico -p /dev/ttyACM0 -i build-artifacts/rpipico/BroncoDeployment/bin/BroncoDeployment.uf2
+   arduino-cli upload -v -b 115200 --fqbn rp2040:rp2040:rpipico -p /media/$USER/ RPI-RP2 -i build-artifacts/rpipico/BroncoDeployment/bin/BroncoDeployment.uf2
    ```
 
 1. Run GDS over serial:
